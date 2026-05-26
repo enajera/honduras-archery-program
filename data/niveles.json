@@ -1,5 +1,20 @@
 [
   {
+    "id": "iniciacion",
+    "nombre": "Curso de Iniciación",
+    "tipo": "basico",
+    "distancia": "Corta",
+    "diana": "Sin diana",
+    "flechas": null,
+    "porcentaje": null,
+    "puntaje_requerido": null,
+    "evaluaciones": "Observación directa",
+    "horas": 8,
+    "notas": "Primer contacto con el tiro con arco. Seguridad, postura y vocabulario básico.",
+    "equipo_recomendado": ["Snake Roland", "Genesis", "PVC"],
+    "pendiente_votacion": false
+  },
+  {
     "id": "basico1",
     "nombre": "Básico 1",
     "tipo": "basico",

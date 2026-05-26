@@ -160,7 +160,7 @@ async function renderRuta() {
     </div>${detailBox(elite)}`;
 
   let html = `<div class="flow-outer"><div class="flow-wrap">
-    ${node(byId['basico1'],'n-inicio')}<div class="flow-arrow"></div>
+    ${node(byId['iniciacion'],'n-inicio')}<div class="flow-arrow"></div>
     ${node(byId['basico1'],'n-basico')}<div class="flow-arrow"></div>
     ${node(byId['basico2'],'n-basico')}<div class="flow-arrow" style="height:18px;"></div>
 
