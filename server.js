@@ -8,7 +8,7 @@ const jwt     = require('jsonwebtoken');
 
 const app    = express();
 const PORT   = process.env.PORT || 3001;
-const SECRET = process.env.JWT_SECRET || 'fehtarco2026_secret_key_cambiar_en_produccion';
+const SECRET = process.env.JWT_SECRET || 'fehtarco2026_secret_key_xyz';
 
 // ── Modo de almacenamiento (auto-detect) ──────────────────────────────────────
 const USE_PG   = !!process.env.POSTGRES_URL;
