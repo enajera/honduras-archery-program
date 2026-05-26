@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WA1 — Secuencia del Disparo · Honduras Archery Program</title>
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  /* WA1 uses amber/gold palette to distinguish from main content */
+  :root {
+    --wa1: #f59e0b; --wa1-dark: #b45309; --wa1-bg: #1c1400;
+    --wa1-border: #78350f; --wa1-text: #fde68a;
+  }
+
+  .wa1-badge {
+    display:inline-flex; align-items:center; gap:5px;
+    background:var(--wa1-bg); border:1px solid var(--wa1);
+    border-radius:20px; padding:3px 10px;
+    font-size:0.72rem; font-weight:700; color:var(--wa1); letter-spacing:1px;
+  }
+
+  /* ── Hero ───────────────────────────────────────── */
+  .wa1-hero {
+    background: linear-gradient(135deg, #1c1400 0%, #0d2137 60%, #1b3a2a 100%);
+    border-bottom: 3px solid var(--wa1);
+    padding: 28px 32px 20px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  .wa1-hero h1 { font-size:1.5rem; font-weight:800; color:#fff; }
+  .wa1-hero p  { color:#fde68a; font-size:0.84rem; margin-top:3px; }
+  .wa1-hero .sub { color:#90a4ae; font-size:0.78rem; }
+
+  /* ── Overview Map ───────────────────────────────── */
+  .map-overview {
+    display:grid; grid-template-columns: repeat(4,1fr); gap:0;
+    margin: 0; border-bottom: 2px solid #1c2a3a;
+  }
+  .map-phase-btn {
+    padding:16px 12px; text-align:center; cursor:pointer;
+    border:none; border-right:1px solid #1c2a3a; background:#161e2a;
+    transition:all 0.2s; color:#90a4ae;
+  }
+  .map-phase-btn:last-child{border-right:none;}
+  .map-phase-btn:hover, .map-phase-btn.active { color:#fff; }
+  .map-phase-btn.active { border-bottom:3px solid currentColor; }
+  .map-phase-btn .phase-num { font-size:1.5rem; font-weight:800; }
+  .map-phase-btn .phase-name { font-size:0.78rem; font-weight:600; margin-top:3px; }
+  .map-phase-btn[data-phase="1"]  { --pc:#4caf50; }
+  .map-phase-btn[data-phase="2"]  { --pc:#2196f3; }
+  .map-phase-btn[data-phase="3"]  { --pc:#ff9800; }
+  .map-phase-btn[data-phase="4"]  { --pc:#9c27b0; }
+  .map-phase-btn:hover,.map-phase-btn.active { color:var(--pc); border-bottom-color:var(--pc); background:#1a2030;}
+
+  /* ── Phase Content ──────────────────────────────── */
+  .phase-panel { display:none; padding:0; }
+  .phase-panel.active { display:block; animation:fadeIn .25s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+
+  .phase-header {
+    padding:20px 24px; border-bottom:1px solid #1c2a3a;
+    display:flex; align-items:flex-start; gap:16px; flex-wrap:wrap;
+  }
+  .phase-number-big {
+    width:54px; height:54px; border-radius:50%; display:flex;
+    align-items:center; justify-content:center;
+    font-size:1.4rem; font-weight:900; flex-shrink:0;
+    border:3px solid currentColor;
+  }
+  .phase-header h2 { font-size:1.25rem; font-weight:800; color:#fff; margin-bottom:4px; }
+  .phase-header p  { font-size:0.87rem; color:#90a4ae; line-height:1.5; max-width:700px; }
+
+  /* ── Steps Grid ─────────────────────────────────── */
+  .steps-container { padding:20px 24px; }
+  .steps-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+
+  .step-card {
+    background:#1a2030; border-radius:12px; border:1px solid #2a3f55;
+    overflow:hidden; transition:border-color .2s;
+  }
+  .step-card:hover { border-color:var(--phase-color,#546e7a); }
+  .step-header {
+    padding:14px 16px; cursor:pointer; display:flex;
+    align-items:center; justify-content:space-between; gap:10px;
+    border-bottom:1px solid #2a3f55;
+    background:#1e2a3a;
+  }
+  .step-header-left { display:flex; align-items:center; gap:10px; }
+  .step-icon { font-size:1.3rem; }
+  .step-title { font-size:0.92rem; font-weight:700; color:#fff; }
+  .step-toggle { color:#546e7a; font-size:0.8rem; transition:transform .2s; }
+  .step-toggle.open { transform:rotate(180deg); color:var(--wa1); }
+
+  .step-body { display:none; padding:14px 16px; }
+  .step-body.open { display:block; animation:fadeIn .2s ease; }
+  .step-body p { font-size:0.86rem; color:#90a4ae; line-height:1.6; margin-bottom:10px; }
+
+  .step-points { list-style:none; margin-bottom:10px; }
+  .step-points li {
+    font-size:0.84rem; color:#b0bec5; padding:4px 0;
+    border-bottom:1px solid #1c2a3a; display:flex; gap:8px; align-items:flex-start;
+  }
+  .step-points li:last-child{border-bottom:none;}
+  .step-points li::before { content:"▸"; color:var(--wa1); flex-shrink:0; margin-top:1px; }
+
+  .step-ejercicios { margin-top:8px; }
+  .step-ejercicios h5 { font-size:0.78rem; font-weight:700; color:var(--wa1); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .step-ejercicios ul { list-style:none; }
+  .step-ejercicios ul li { font-size:0.82rem; color:#78909c; padding:3px 0; }
+  .step-ejercicios ul li::before { content:"🔸 "; }
+
+  /* ── Images ─────────────────────────────────────── */
+  .step-images { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .step-img-wrap {
+    background:#0d1a2a; border-radius:8px; overflow:hidden;
+    border:1px solid var(--wa1-border); text-align:center; flex:1; min-width:140px; max-width:220px;
+  }
+  .step-img-wrap img { width:100%; max-height:160px; object-fit:cover; display:block; }
+  .step-img-wrap span { font-size:0.72rem; color:var(--wa1-text); padding:5px 8px; display:block; }
+
+  /* ── Extra Sections ──────────────────────────────── */
+  .extra-tabs { display:flex; gap:4px; padding:0 24px; border-bottom:1px solid #1c2a3a; background:#161e2a; flex-wrap:wrap; }
+  .extra-tab { background:none; border:none; border-bottom:3px solid transparent; color:#78909c; padding:10px 16px; cursor:pointer; font-size:0.85rem; font-weight:600; }
+  .extra-tab:hover { color:#fff; }
+  .extra-tab.active { color:var(--wa1); border-bottom-color:var(--wa1); }
+
+  .extra-panel { display:none; padding:20px 24px; }
+  .extra-panel.active { display:block; animation:fadeIn .2s ease; }
+
+  .psico-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; }
+  .psico-card { background:#1a2030; border-radius:10px; padding:14px; border-left:3px solid var(--wa1); }
+  .psico-card h4 { font-size:0.9rem; font-weight:700; color:var(--wa1); margin-bottom:6px; }
+  .psico-card p  { font-size:0.82rem; color:#90a4ae; line-height:1.5; }
+
+  .fisico-list { list-style:none; }
+  .fisico-list li { padding:6px 0; border-bottom:1px solid #1c2a3a; font-size:0.87rem; color:#b0bec5; display:flex; gap:8px; }
+  .fisico-list li::before { content:"💪"; }
+
+  .obs-point { display:flex; align-items:center; gap:8px; padding:6px 0; font-size:0.86rem; color:#b0bec5; }
+  .obs-point::before { content:"📹"; }
+
+  /* ── Base concepts ───────────────────────────────── */
+  .concepts-bar { display:flex; gap:12px; padding:14px 24px; background:#0d1a1a; flex-wrap:wrap; border-bottom:1px solid #1c2a3a; }
+  .concept-chip {
+    background:#1a2030; border:1px solid var(--wa1-border); border-radius:10px;
+    padding:10px 14px; flex:1; min-width:220px; cursor:pointer; transition:border-color .2s;
+  }
+  .concept-chip:hover { border-color:var(--wa1); }
+  .concept-chip h4 { font-size:0.85rem; font-weight:700; color:var(--wa1); display:flex; align-items:center; gap:6px; margin-bottom:4px; }
+  .concept-chip p { font-size:0.79rem; color:#78909c; line-height:1.4; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="app-header" style="background:linear-gradient(135deg,#1c1400 0%,#0d2137 100%);border-bottom-color:var(--wa1,#f59e0b);">
+  <div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+      <span class="wa1-badge">🎓 WA1 — Santiago Avitia</span>
+      <span class="wa1-badge" style="border-color:#90a4ae;color:#90a4ae;background:transparent;">Pascal Colmaire · World Archery</span>
+    </div>
+    <h1>🏹 Secuencia del Disparo — Nivel 1</h1>
+    <p>Base científica del tiro con arco olímpico</p>
+  </div>
+  <div class="header-right">
+    <div id="user-info"></div>
+    <a href="index.html" class="btn btn-outline" style="font-size:0.82rem;">← Volver</a>
+  </div>
+</header>
+
+<!-- LOADING -->
+<div id="wa1-loading" style="text-align:center;padding:60px;color:#90a4ae;">Cargando contenido WA1...</div>
+<div id="wa1-app" style="display:none;"></div>
+
+<footer>Honduras Archery Program · Contenido exclusivo — Curso WA1 impartido por Santiago Avitia · Abril 2026</footer>
+<div class="toast" id="toast"></div>
+
+<script src="js/auth.js"></script>
+<script>
+if (!Auth.require()) throw new Error('not authenticated');
+Auth.renderUser('user-info');
+
+// ── Render ─────────────────────────────────────────────────────────────────────
+async function loadWA1() {
+  const data = await Auth.get('/api/wa1');
+  if (!data) return;
+  document.getElementById('wa1-loading').style.display = 'none';
+  const app = document.getElementById('wa1-app');
+  app.style.display = 'block';
+  app.innerHTML = buildWA1(data);
+  // activate first phase
+  selectPhase(1, data.fases[0].color);
+  selectExtra('psicologia');
+}
+
+function buildWA1(data) {
+  // Concept chips
+  const chips = data.conceptos_base.map(c => `
+    <div class="concept-chip">
+      <h4>${c.icono} ${c.titulo}</h4>
+      <p>${c.texto}</p>
+    </div>`).join('');
+
+  // Phase nav buttons
+  const phaseBtns = data.fases.map(f => `
+    <button class="map-phase-btn" data-phase="${f.numero}" style="--pc:${f.color}"
+      onclick="selectPhase(${f.numero},'${f.color}')">
+      <div class="phase-num" style="color:${f.color};">${f.numero}</div>
+      <div class="phase-name">${f.titulo.split(' ').slice(0,2).join(' ')}</div>
+    </button>`).join('');
+
+  // Phase panels
+  const phasePanels = data.fases.map(f => buildPhasePanel(f)).join('');
+
+  // Extra sections
+  const psicoCards = data.psicologia.temas.map(t => `
+    <div class="psico-card">
+      <h4>${t.nombre}</h4>
+      <p>${t.desc}</p>
+    </div>`).join('');
+
+  const fisicoItems = data.trabajo_fisico.componentes.map(c => `<li>${c}</li>`).join('');
+
+  const obsPoints = data.observacion.puntos_observacion.map(p => `<div class="obs-point">${p}</div>`).join('');
+
+  return `
+    <div class="concepts-bar">${chips}</div>
+
+    <div class="map-overview">${phaseBtns}</div>
+    ${phasePanels}
+
+    <div style="background:#0d1520;border-top:2px solid #1c2a3a;margin-top:0;">
+      <div class="extra-tabs">
+        <button class="extra-tab" onclick="selectExtra('psicologia',this)">🧠 Psicología</button>
+        <button class="extra-tab" onclick="selectExtra('fisico',this)">💪 Trabajo Físico</button>
+        <button class="extra-tab" onclick="selectExtra('observacion',this)">📹 Observación</button>
+      </div>
+
+      <div class="extra-panel" id="extra-psicologia">
+        <p class="section-title">${data.psicologia.titulo}</p>
+        <div class="psico-grid">${psicoCards}</div>
+      </div>
+
+      <div class="extra-panel" id="extra-fisico">
+        <p class="section-title">${data.trabajo_fisico.titulo}</p>
+        <ul class="fisico-list">${fisicoItems}</ul>
+        <div class="nota" style="margin-top:16px;">
+          <span>💪</span>
+          <div><strong>Prueba de fuerza:</strong> ${data.trabajo_fisico.prueba_fuerza}</div>
+        </div>
+        <div class="nota" style="margin-top:8px;border-color:#2196f3;background:#0d2137;color:#90caf9;">
+          <span>🪵</span>
+          <div><strong>Tablas Wobbling:</strong> ${data.trabajo_fisico.tablas_wobbling}</div>
+        </div>
+      </div>
+
+      <div class="extra-panel" id="extra-observacion">
+        <p class="section-title">${data.observacion.titulo}</p>
+        <p style="color:#90a4ae;font-size:0.88rem;margin-bottom:14px;">${data.observacion.descripcion}</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:600px;">
+          ${obsPoints}
+        </div>
+        <div class="nota" style="margin-top:16px;">
+          <span>📱</span>
+          <div>${data.observacion.ventaja}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function buildPhasePanel(f) {
+  const steps = f.pasos.map(p => buildStep(p, f.color)).join('');
+  const key = `p${f.numero}`;
+  return `
+    <div class="phase-panel" id="phase-panel-${f.numero}" style="--phase-color:${f.color};">
+      <div class="phase-header">
+        <div class="phase-number-big" style="color:${f.color};border-color:${f.color};">${f.numero}</div>
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <h2 style="color:${f.color};">${f.titulo}</h2>
+            <span class="wa1-badge">WA1</span>
+          </div>
+          <p>${f.descripcion}</p>
+        </div>
+      </div>
+      <div class="steps-container">
+        <div class="steps-grid">${steps}</div>
+      </div>
+    </div>`;
+}
+
+function buildStep(p, color) {
+  const id = 'step_' + Math.random().toString(36).slice(2);
+  const puntos = (p.puntos||[]).map(pt => `<li>${pt}</li>`).join('');
+  const ejercicios = (p.ejercicios||[]).length ? `
+    <div class="step-ejercicios">
+      <h5>🔸 Ejercicios</h5>
+      <ul>${p.ejercicios.map(e=>`<li>${e}</li>`).join('')}</ul>
+    </div>` : '';
+
+  const imagenes = (p.imagenes||[]).length ? `
+    <div class="step-images">
+      ${p.imagenes.map(img => `
+        <div class="step-img-wrap">
+          <img src="${img.src}" alt="${img.caption}" loading="lazy" onerror="this.parentElement.style.display='none'">
+          <span>${img.caption}</span>
+        </div>`).join('')}
+    </div>` : '';
+
+  return `
+    <div class="step-card" style="--phase-color:${color}">
+      <div class="step-header" onclick="toggleStep('${id}')">
+        <div class="step-header-left">
+          <span class="step-icon">${p.icono}</span>
+          <span class="step-title">${p.titulo}</span>
+        </div>
+        <span class="step-toggle" id="tog-${id}">▼</span>
+      </div>
+      <div class="step-body" id="${id}">
+        <p>${p.contenido}</p>
+        <ul class="step-points">${puntos}</ul>
+        ${ejercicios}
+        ${imagenes}
+        <div style="margin-top:10px;"><span class="wa1-badge">🎓 WA1 · Santiago Avitia</span></div>
+      </div>
+    </div>`;
+}
+
+// ── Interactions ──────────────────────────────────────────────────────────────
+function selectPhase(n, color) {
+  document.querySelectorAll('.phase-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.map-phase-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById('phase-panel-'+n);
+  if (panel) panel.classList.add('active');
+  const btn = document.querySelector(`.map-phase-btn[data-phase="${n}"]`);
+  if (btn) btn.classList.add('active');
+}
+
+function toggleStep(id) {
+  const body = document.getElementById(id);
+  const tog  = document.getElementById('tog-'+id);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  tog.classList.toggle('open', !isOpen);
+}
+
+function selectExtra(key, btn) {
+  document.querySelectorAll('.extra-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.extra-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('extra-'+key).classList.add('active');
+  if (btn) btn.classList.add('active');
+  else {
+    const def = document.querySelector(`.extra-tab[onclick*="${key}"]`);
+    if (def) def.classList.add('active');
+  }
+}
+
+loadWA1();
+</script>
+</body>
+</html>

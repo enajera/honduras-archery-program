@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Honduras Archery Program — Iniciar sesión</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1b2a 0%,#1b3a2a 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;}
+  .login-box{background:#1e2a3a;border:1px solid #2a3f55;border-radius:16px;padding:40px;width:min(420px,94vw);box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+  .logo{text-align:center;margin-bottom:28px;}
+  .logo h1{font-size:1.6rem;font-weight:800;color:#fff;letter-spacing:1px;}
+  .logo p{color:#90a4ae;font-size:0.85rem;margin-top:4px;}
+  .logo .badge{display:inline-block;background:#f9a825;color:#000;font-weight:700;font-size:0.72rem;padding:3px 10px;border-radius:20px;margin-top:8px;letter-spacing:1px;}
+  .form-group{margin-bottom:16px;}
+  .form-group label{display:block;font-size:0.82rem;color:#90a4ae;margin-bottom:6px;font-weight:600;}
+  .form-group input{width:100%;background:#0d1a2a;border:1.5px solid #2a3f55;border-radius:8px;padding:11px 14px;color:#e0e0e0;font-size:0.9rem;outline:none;transition:border-color 0.2s;}
+  .form-group input:focus{border-color:#42a5f5;}
+  .btn-login{width:100%;background:linear-gradient(135deg,#1b5e20,#1565c0);border:none;border-radius:8px;padding:13px;color:#fff;font-size:0.95rem;font-weight:700;cursor:pointer;letter-spacing:0.5px;transition:opacity 0.2s;margin-top:6px;}
+  .btn-login:hover{opacity:0.88;}
+  .btn-login:disabled{opacity:0.5;cursor:not-allowed;}
+  .error-msg{background:#2a0d0d;border:1px solid #ef9a9a;border-radius:8px;padding:10px 14px;color:#ef9a9a;font-size:0.84rem;margin-bottom:14px;display:none;}
+  .arrow-deco{font-size:3rem;margin-bottom:8px;display:block;}
+  .hint{font-size:0.75rem;color:#546e7a;text-align:center;margin-top:16px;}
+</style>
+</head>
+<body>
+<div class="login-box">
+  <div class="logo">
+    <span class="arrow-deco">🏹</span>
+    <h1>Honduras Archery Program</h1>
+    <p>Federación Hondureña de Tiro con Arco — FEHTARCO</p>
+    <span class="badge">ACCESO RESTRINGIDO</span>
+  </div>
+
+  <div class="error-msg" id="error-msg"></div>
+
+  <form id="login-form" onsubmit="doLogin(event)">
+    <div class="form-group">
+      <label>Correo electrónico</label>
+      <input type="email" id="email" placeholder="tu@correo.com" required autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label>Contraseña</label>
+      <input type="password" id="password" placeholder="••••••••••" required autocomplete="current-password">
+    </div>
+    <button type="submit" class="btn-login" id="btn-login">Iniciar sesión</button>
+  </form>
+
+  <p class="hint">Solo miembros autorizados pueden acceder.</p>
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+  Auth.requireGuest();
+
+  async function doLogin(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btn-login');
+    const errEl = document.getElementById('error-msg');
+    errEl.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Verificando...';
+
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: document.getElementById('email').value,
+          password: document.getElementById('password').value
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        errEl.textContent = data.error || 'Error al iniciar sesión';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Iniciar sesión';
+        return;
+      }
+      Auth.save(data.token, data.user);
+      window.location.href = '/index.html';
+    } catch(err) {
+      errEl.textContent = 'No se pudo conectar al servidor.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Iniciar sesión';
+    }
+  }
+</script>
+</body>
+</html>

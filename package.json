@@ -1,0 +1,17 @@
+{
+  "name": "honduras-archery-program",
+  "version": "1.0.0",
+  "description": "Plataforma de Masificación del Tiro con Arco en Honduras - FEHTARCO",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "npx nodemon server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^1.4.5-lts.1"
+  }
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Honduras Archery Program</title>
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  .user-info { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .user-name { font-size:0.82rem; color:#90a4ae; }
+  .user-name strong { color:#e0e0e0; }
+  .nav-section { display:flex; align-items:center; gap:6px; padding:0 12px; border-right:1px solid var(--border); }
+  .nav-section:last-child { border-right:none; }
+  .tabs { display:flex; flex-wrap:wrap; gap:4px; padding:10px 16px; background:var(--bg2); border-bottom:1px solid var(--border); align-items:center; }
+  .tab-spacer { flex:1; }
+  .tab-external { background:none; border:1px solid var(--border2); border-radius:8px; padding:7px 14px; color:var(--text2); font-size:0.84rem; font-weight:600; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:5px; transition:background 0.15s,color 0.15s,border-color 0.15s; }
+  .tab-external:hover { background:var(--bg4); color:#fff; border-color:var(--azul-c); }
+  .tab-external.wa1 { border-color:#f59e0b44; color:#f59e0b; }
+  .tab-external.wa1:hover { background:#f59e0b18; border-color:#f59e0b; }
+  .tab-external.equip { border-color:#34d39944; color:#34d399; }
+  .tab-external.equip:hover { background:#34d39918; border-color:#34d399; }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div>
+    <h1>🏹 Honduras Archery Program</h1>
+    <p>Federación Hondureña de Tiro con Arco — FEHTARCO</p>
+  </div>
+  <div class="header-right user-info">
+    <span class="user-name">👤 <strong id="header-user">...</strong></span>
+    <span class="badge">HAP</span>
+    <a id="admin-link" href="admin.html" class="btn btn-outline" style="display:none;">⚙️ Admin</a>
+    <button class="btn btn-outline" onclick="Auth.logout()" style="font-size:0.78rem;padding:6px 12px;">Cerrar sesión</button>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" onclick="showTab('iniciacion',this)">📋 Curso Iniciación</button>
+  <button class="tab-btn" onclick="showTab('ruta',this)">🗺️ Ruta de Progresión</button>
+  <button class="tab-btn" onclick="showTab('niveles',this)">📊 Niveles y Distancias</button>
+  <button class="tab-btn" onclick="showTab('reglas',this)">📜 Reglas</button>
+  <button class="tab-btn" onclick="showTab('documentos',this)">📁 Documentos</button>
+  <button class="tab-btn" onclick="showTab('micro',this)">⚡ MICRO</button>
+  <button class="tab-btn" onclick="showTab('macro',this)">🌐 MACRO</button>
+  <div class="tab-spacer"></div>
+  <a href="wa1.html" class="tab-external wa1">🎯 Metodología WA1</a>
+  <a href="equipamiento.html" class="tab-external equip">🏹 Equipamiento</a>
+</nav>
+
+<div class="content">
+
+  <!-- ── CURSO INICIACIÓN ─────────────────────────────────── -->
+  <div class="tab-panel active" id="tab-iniciacion">
+    <p class="section-title">Curso de Iniciación — Futuro Inmediato</p>
+    <div id="iniciacion-content"><div style="color:var(--text2);padding:20px;">Cargando...</div></div>
+  </div>
+
+  <!-- ── RUTA DE PROGRESIÓN ─────────────────────────────────── -->
+  <div class="tab-panel" id="tab-ruta">
+    <p class="section-title">Ruta de Progresión del Arquero</p>
+    <p class="section-subtitle">Haz clic en cualquier nodo para ver sus detalles.</p>
+    <div id="ruta-content"><div style="color:var(--text2);padding:20px;">Cargando...</div></div>
+  </div>
+
+  <!-- ── NIVELES Y DISTANCIAS ─────────────────────────────────── -->
+  <div class="tab-panel" id="tab-niveles">
+    <p class="section-title">Tabla de Niveles, Distancias y Evaluaciones</p>
+    <div id="niveles-content"><div style="color:var(--text2);padding:20px;">Cargando...</div></div>
+  </div>
+
+  <!-- ── REGLAS ─────────────────────────────────── -->
+  <div class="tab-panel" id="tab-reglas">
+    <p class="section-title">Reglas y Normativas</p>
+    <div id="reglas-content"><div style="color:var(--text2);padding:20px;">Cargando...</div></div>
+  </div>
+
+  <!-- ── DOCUMENTOS ─────────────────────────────────── -->
+  <div class="tab-panel" id="tab-documentos">
+    <p class="section-title">Documentos y Recursos</p>
+    <div id="documentos-content"><div style="color:var(--text2);padding:20px;">Cargando...</div></div>
+  </div>
+
+  <!-- ── MICRO ─────────────────────────────────── -->
+  <div class="tab-panel" id="tab-micro">
+    <p class="section-title">Planificación MICRO</p>
+    <div id="micro-content"><div style="color:var(--text2);padding:20px;">Cargando...</div></div>
+  </div>
+
+  <!-- ── MACRO ─────────────────────────────────── -->
+  <div class="tab-panel" id="tab-macro">
+    <p class="section-title">Planificación MACRO</p>
+    <div id="macro-content"><div style="color:var(--text2);padding:20px;">Cargando...</div></div>
+  </div>
+
+</div><!-- /.content -->
+
+<div class="toast" id="toast"></div>
+
+<script src="js/auth.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>

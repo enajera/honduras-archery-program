@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Honduras Archery Program</title>
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .edit-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+  .edit-table th, .edit-table td { padding: 8px 12px; border: 1px solid var(--border); }
+  .edit-table th { background: var(--bg4); color: var(--amarillo); text-align: left; }
+  .edit-table tbody tr:nth-child(even) { background: var(--bg3); }
+  .edit-table tbody tr:nth-child(odd)  { background: var(--bg2); }
+  .edit-table input[type="text"], .edit-table input[type="number"] {
+    background: var(--bg4); border: 1px solid var(--border2); border-radius: 5px;
+    padding: 5px 8px; color: var(--text); font-size: 0.83rem; width: 100%;
+  }
+  .edit-table input:focus { border-color: var(--azul-c); outline: none; }
+  .toggle-pend { background: none; border: 1px solid var(--border2); border-radius: 5px; padding: 4px 8px; color: var(--text2); cursor: pointer; font-size: 0.8rem; }
+  .toggle-pend.active { background: var(--naranja-bg); border-color: var(--naranja-c); color: var(--naranja-c); }
+  .section-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+  .add-item-row { display: flex; gap: 8px; margin-top: 10px; }
+  .add-item-row input { flex: 1; background: var(--bg4); border: 1px solid var(--border2); border-radius: 7px; padding: 8px 12px; color: var(--text); font-size: 0.85rem; }
+  .add-item-row input:focus { border-color: var(--azul-c); outline: none; }
+  .item-list { list-style: none; }
+  .item-list li { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; color: var(--text2); }
+  .item-list li:last-child { border-bottom: none; }
+  .del-btn { background: none; border: none; color: var(--rojo-c); cursor: pointer; font-size: 1rem; padding: 0 4px; }
+  .del-btn:hover { color: #ff5252; }
+  .upload-zone { border: 2px dashed var(--border2); border-radius: 12px; padding: 28px; text-align: center; color: var(--text2); cursor: pointer; transition: border-color 0.2s; }
+  .upload-zone:hover { border-color: var(--azul-c); color: var(--azul-c); }
+  .upload-zone input { display: none; }
+  .doc-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 14px; background: var(--bg2); border-radius: 8px; border: 1px solid var(--border); margin-bottom: 8px; flex-wrap: wrap; }
+  .doc-row-info { display: flex; align-items: center; gap: 10px; }
+  .regla-edit-list { list-style: none; }
+  .regla-edit-list li { display: flex; gap: 8px; margin-bottom: 8px; }
+  .regla-edit-list li input { flex: 1; background: var(--bg4); border: 1px solid var(--border2); border-radius: 7px; padding: 7px 10px; color: var(--text); font-size: 0.84rem; }
+  .regla-edit-list li input:focus { border-color: var(--azul-c); outline: none; }
+  .sesion-edit { background: var(--bg2); border-radius: 10px; padding: 16px; border: 1px solid var(--border); margin-bottom: 12px; }
+  .sesion-edit h4 { font-size: 0.95rem; margin-bottom: 10px; color: #fff; }
+  /* ── Usuarios ── */
+  .user-table { width:100%; border-collapse:collapse; font-size:0.84rem; }
+  .user-table th, .user-table td { padding:10px 14px; border:1px solid var(--border); text-align:left; }
+  .user-table th { background:var(--bg4); color:var(--amarillo); }
+  .user-table tbody tr:nth-child(even) { background:var(--bg3); }
+  .user-table tbody tr:nth-child(odd) { background:var(--bg2); }
+  .badge-rol { display:inline-block; padding:2px 9px; border-radius:12px; font-size:0.74rem; font-weight:700; }
+  .badge-rol.admin { background:#1e3a5f; color:#90caf9; border:1px solid #1565c0; }
+  .badge-rol.miembro { background:#1b3a2a; color:#a5d6a7; border:1px solid #2e7d32; }
+  .badge-activo { color:#66bb6a; font-size:0.85rem; }
+  .badge-inactivo { color:#ef9a9a; font-size:0.85rem; }
+  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:9000; align-items:center; justify-content:center; }
+  .modal-overlay.open { display:flex; }
+  .modal-box { background:var(--bg2); border:1px solid var(--border2); border-radius:14px; padding:28px; width:min(460px,94vw); box-shadow:0 20px 50px rgba(0,0,0,0.5); }
+  .modal-box h3 { font-size:1rem; color:#fff; margin-bottom:18px; }
+  .form-group { margin-bottom:12px; }
+  .form-group label { display:block; font-size:0.8rem; color:#90a4ae; margin-bottom:5px; font-weight:600; }
+  .form-group input, .form-group select { width:100%; background:var(--bg4); border:1.5px solid var(--border2); border-radius:7px; padding:9px 12px; color:var(--text); font-size:0.87rem; outline:none; }
+  .form-group input:focus, .form-group select:focus { border-color:var(--azul-c); }
+  .modal-actions { display:flex; gap:10px; margin-top:16px; }
+  .user-me { outline: 2px solid #42a5f5; }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div>
+    <h1>⚙️ Panel de Administración</h1>
+    <p>Honduras Archery Program — Gestión de contenido</p>
+  </div>
+  <div class="header-right" style="display:flex;align-items:center;gap:10px;">
+    <span id="admin-user-name" style="font-size:0.82rem;color:#90a4ae;"></span>
+    <a href="index.html" class="btn btn-outline">← Volver al sitio</a>
+    <button class="btn btn-outline" onclick="Auth.logout()" style="font-size:0.78rem;padding:6px 12px;">Cerrar sesión</button>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" onclick="showTab('doc-admin',this)">📁 Documentos</button>
+  <button class="tab-btn" onclick="showTab('niveles-admin',this)">📊 Niveles</button>
+  <button class="tab-btn" onclick="showTab('sesiones-admin',this)">📋 Sesiones</button>
+  <button class="tab-btn" onclick="showTab('reglas-admin',this)">📜 Reglas</button>
+  <button class="tab-btn" onclick="showTab('micro-admin',this)">⚡ MICRO</button>
+  <button class="tab-btn" onclick="showTab('macro-admin',this)">🌐 MACRO</button>
+  <button class="tab-btn" id="tab-btn-usuarios" onclick="showTab('usuarios-admin',this)" style="display:none;">👥 Usuarios</button>
+  <button class="tab-btn" onclick="showTab('mi-cuenta',this)">🔑 Mi Cuenta</button>
+</nav>
+
+<div class="content">
+
+  <!-- ── DOCUMENTOS ─────────────────────────────────── -->
+  <div class="tab-panel active" id="tab-doc-admin">
+    <p class="section-title">Gestión de Documentos</p>
+
+    <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+      <input type="file" id="fileInput" multiple accept=".pdf,.docx,.xlsx,.pptx,.png,.jpg,.jpeg" onchange="handleUpload(this)">
+      <p style="font-size:2rem;margin-bottom:8px;">📤</p>
+      <p style="font-weight:700;">Haz clic para subir documentos</p>
+      <p style="font-size:0.8rem;margin-top:4px;">PDF, DOCX, XLSX, PPTX, Imágenes · Máx. 100 MB</p>
+    </div>
+
+    <div id="upload-form" style="display:none;" class="card">
+      <h3 style="color:var(--azul-c);">📋 Información del documento</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+        <div class="form-group"><label>Nombre del documento</label><input type="text" id="doc-nombre" placeholder="ej. Manual del Entrenador"></div>
+        <div class="form-group"><label>Categoría</label>
+          <select id="doc-categoria">
+            <option>Manuales</option><option>Reglamentos</option><option>World Archery</option>
+            <option>Científico / Técnico</option><option>Curso Iniciación</option>
+            <option>Torneos</option><option>Equipamiento</option><option>General</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Nivel relacionado (opcional)</label>
+          <select id="doc-nivel">
+            <option value="">— Todos los niveles —</option>
+            <option>Iniciación</option><option>Básico 1</option><option>Básico 2</option>
+            <option>Intermedio 1</option><option>Intermedio 2</option><option>Intermedio 3</option>
+            <option>Avanzado 1</option><option>Avanzado 2</option><option>Avanzado 3</option>
+            <option>Atleta A/B</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Descripción breve</label><input type="text" id="doc-desc" placeholder="Descripción opcional"></div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:12px;">
+        <button class="btn btn-primary" onclick="submitUpload()">⬆️ Subir documento</button>
+        <button class="btn btn-outline" onclick="cancelUpload()">Cancelar</button>
+      </div>
+    </div>
+
+    <div id="docs-list" style="margin-top:20px;"></div>
+  </div>
+
+  <!-- ── NIVELES ─────────────────────────────────── -->
+  <div class="tab-panel" id="tab-niveles-admin">
+    <p class="section-title">Editar Niveles y Distancias</p>
+    <div class="section-bar">
+      <p style="font-size:0.85rem;color:var(--text2);">Edita directamente las celdas. Los cambios se guardan al presionar "Guardar".</p>
+      <button class="btn btn-primary" onclick="saveNiveles()">💾 Guardar cambios</button>
+    </div>
+    <div style="overflow-x:auto;"><table class="edit-table" id="niveles-table">
+      <thead><tr>
+        <th>Nivel</th><th>Tipo</th><th>Distancia</th><th>Diana</th>
+        <th>Flechas</th><th>% Mín.</th><th>Evaluaciones</th><th>Notas</th><th>⚠️ Pend.</th>
+      </tr></thead>
+      <tbody id="niveles-tbody"></tbody>
+    </table></div>
+  </div>
+
+  <!-- ── SESIONES ─────────────────────────────────── -->
+  <div class="tab-panel" id="tab-sesiones-admin">
+    <p class="section-title">Editar Sesiones del Curso</p>
+    <div class="section-bar">
+      <p style="font-size:0.85rem;color:var(--text2);">Edita los contenidos de cada sesión.</p>
+      <button class="btn btn-primary" onclick="saveSesiones()">💾 Guardar cambios</button>
+    </div>
+    <div id="sesiones-edit-container"></div>
+  </div>
+
+  <!-- ── REGLAS ─────────────────────────────────── -->
+  <div class="tab-panel" id="tab-reglas-admin">
+    <p class="section-title">Editar Reglas y Normativas</p>
+    <div class="section-bar">
+      <p style="font-size:0.85rem;color:var(--text2);">Edita, agrega o elimina reglas por sección.</p>
+      <button class="btn btn-primary" onclick="saveReglas()">💾 Guardar cambios</button>
+    </div>
+    <div id="reglas-edit-container"></div>
+  </div>
+
+  <!-- ── MICRO ─────────────────────────────────── -->
+  <div class="tab-panel" id="tab-micro-admin">
+    <p class="section-title">Editar Plan MICRO</p>
+    <div class="section-bar">
+      <button class="btn btn-primary" onclick="saveMicro()">💾 Guardar cambios</button>
+    </div>
+    <div id="micro-edit-container"></div>
+  </div>
+
+  <!-- ── MACRO ─────────────────────────────────── -->
+  <div class="tab-panel" id="tab-macro-admin">
+    <p class="section-title">Editar Plan MACRO</p>
+    <div class="section-bar">
+      <button class="btn btn-primary" onclick="saveMacro()">💾 Guardar cambios</button>
+    </div>
+    <div id="macro-edit-container"></div>
+  </div>
+
+  <!-- ── USUARIOS (solo admin) ──────────────────── -->
+  <div class="tab-panel" id="tab-usuarios-admin">
+    <p class="section-title">Gestión de Usuarios</p>
+    <div class="section-bar">
+      <p style="font-size:0.85rem;color:var(--text2);">Solo administradores pueden crear y gestionar usuarios.</p>
+      <button class="btn btn-primary" onclick="openNewUser()">➕ Nuevo usuario</button>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="user-table">
+        <thead><tr><th>Nombre</th><th>Correo</th><th>Rol</th><th>Estado</th><th>Creado</th><th>Acciones</th></tr></thead>
+        <tbody id="users-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── MI CUENTA ──────────────────────────────── -->
+  <div class="tab-panel" id="tab-mi-cuenta">
+    <p class="section-title">Mi Cuenta</p>
+    <div class="card" style="max-width:420px;">
+      <h3 style="color:var(--azul-c);margin-bottom:16px;">🔑 Cambiar Contraseña</h3>
+      <div class="form-group"><label>Contraseña actual</label>
+        <input type="password" id="pw-actual" placeholder="••••••••">
+      </div>
+      <div class="form-group"><label>Nueva contraseña</label>
+        <input type="password" id="pw-nueva" placeholder="Mínimo 8 caracteres">
+      </div>
+      <div class="form-group"><label>Confirmar nueva contraseña</label>
+        <input type="password" id="pw-confirmar" placeholder="Repite la nueva contraseña">
+      </div>
+      <button class="btn btn-primary" onclick="cambiarPassword()" style="margin-top:6px;">💾 Actualizar contraseña</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>Honduras Archery Program Admin · FEHTARCO · v1.0 · 2026</footer>
+<div class="toast" id="toast"></div>
+
+<!-- ── MODAL crear/editar usuario ─────────────────────────────────────────── -->
+<div class="modal-overlay" id="user-modal">
+  <div class="modal-box">
+    <h3 id="modal-title">Nuevo Usuario</h3>
+    <div class="form-group"><label>Nombre completo</label>
+      <input type="text" id="modal-nombre" placeholder="Ej. Ana García">
+    </div>
+    <div class="form-group"><label>Correo electrónico</label>
+      <input type="email" id="modal-email" placeholder="correo@ejemplo.com">
+    </div>
+    <div class="form-group" id="modal-pw-group"><label>Contraseña <span style="font-size:0.75rem;color:#546e7a;">(dejar vacío para no cambiar)</span></label>
+      <input type="password" id="modal-password" placeholder="Mínimo 8 caracteres">
+    </div>
+    <div class="form-group"><label>Rol</label>
+      <select id="modal-rol">
+        <option value="miembro">Miembro</option>
+        <option value="admin">Administrador</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="modal-save-btn" onclick="saveUser()">💾 Guardar</button>
+      <button class="btn btn-outline" onclick="closeUserModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/auth.js"></script>
+<script>
+// ── Auth guard ────────────────────────────────────────────────────────────────
+Auth.require();
+
+window.addEventListener('DOMContentLoaded', () => {
+  const u = Auth.getUser();
+  if (u) {
+    document.getElementById('admin-user-name').textContent = '👤 ' + (u.nombre || u.email);
+    if (u.rol === 'admin') {
+      document.getElementById('tab-btn-usuarios').style.display = 'inline-block';
+    }
+  }
+  loadDocs();
+});
+
+// ── Utils ─────────────────────────────────────────────────────────────────────
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  loadSection(id);
+}
+function toast(msg, type='ok') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type==='error' ? ' error' : '');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+function fileIcon(n=''){const m={pdf:'📄',docx:'📝',doc:'📝',xlsx:'📊',xls:'📊',pptx:'📊',ppt:'📊',png:'🖼️',jpg:'🖼️',jpeg:'🖼️'};return m[(n.split('.').pop()||'').toLowerCase()]||'📎';}
+function fmtBytes(b){if(!b)return'';if(b<1024)return b+' B';if(b<1024*1024)return(b/1024).toFixed(1)+' KB';return(b/(1024*1024)).toFixed(1)+' MB';}
+function uploadUrl(filename) { return `/uploads/${encodeURIComponent(filename)}?token=${encodeURIComponent(Auth.getToken())}`; }
+
+const sectionLoaded = {};
+function loadSection(id) {
+  if (sectionLoaded[id]) return;
+  sectionLoaded[id] = true;
+  const fn = {
+    'doc-admin': loadDocs,
+    'niveles-admin': loadNiveles,
+    'sesiones-admin': loadSesiones,
+    'reglas-admin': loadReglas,
+    'micro-admin': loadMicro,
+    'macro-admin': loadMacro,
+    'usuarios-admin': loadUsers,
+    'mi-cuenta': () => {}
+  };
+  if (fn[id]) fn[id]();
+}
+
+// ── DOCS ─────────────────────────────────────────────────────────────────────
+let pendingFile = null;
+function handleUpload(input) {
+  if (!input.files.length) return;
+  pendingFile = input.files[0];
+  document.getElementById('doc-nombre').value = pendingFile.name.replace(/\.[^.]+$/, '');
+  document.getElementById('upload-form').style.display = 'block';
+}
+function cancelUpload() {
+  pendingFile = null;
+  document.getElementById('upload-form').style.display = 'none';
+  document.getElementById('fileInput').value = '';
+}
+async function submitUpload() {
+  if (!pendingFile) return;
+  const fd = new FormData();
+  fd.append('archivo', pendingFile);
+  fd.append('nombre', document.getElementById('doc-nombre').value);
+  fd.append('categoria', document.getElementById('doc-categoria').value);
+  fd.append('nivel', document.getElementById('doc-nivel').value);
+  fd.append('descripcion', document.getElementById('doc-desc').value);
+  const res = await Auth.fetch('/api/documentos', { method: 'POST', body: fd });
+  if (res.ok) { toast('✅ Documento subido'); cancelUpload(); sectionLoaded['doc-admin'] = false; loadDocs(); }
+  else toast('Error al subir', 'error');
+}
+async function loadDocs() {
+  sectionLoaded['doc-admin'] = true;
+  const docs = await Auth.get('/api/documentos');
+  const el = document.getElementById('docs-list');
+  if (!docs.length) { el.innerHTML = '<p style="color:var(--text2);margin-top:16px;">No hay documentos aún.</p>'; return; }
+  el.innerHTML = docs.map(d => `
+    <div class="doc-row">
+      <div class="doc-row-info">
+        <span style="font-size:1.5rem;">${fileIcon(d.filename)}</span>
+        <div>
+          <div style="font-weight:700;color:#fff;">${d.nombre}</div>
+          <div style="font-size:0.78rem;color:var(--text2);">${d.categoria}${d.nivel?' · '+d.nivel:''} · ${d.fecha} · ${fmtBytes(d.size)}</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <a href="${uploadUrl(d.filename)}" target="_blank" class="btn btn-outline" style="font-size:0.78rem;padding:5px 12px;">👁️ Ver</a>
+        <button class="btn btn-danger" style="font-size:0.78rem;padding:5px 12px;" onclick="deleteDoc(${d.id})">🗑️ Eliminar</button>
+      </div>
+    </div>`).join('');
+}
+async function deleteDoc(id) {
+  if (!confirm('¿Eliminar este documento?')) return;
+  await Auth.fetch('/api/documentos/' + id, { method: 'DELETE' });
+  toast('Documento eliminado');
+  sectionLoaded['doc-admin'] = false;
+  loadDocs();
+}
+
+// ── NIVELES ──────────────────────────────────────────────────────────────────
+let nivelesData = [];
+async function loadNiveles() {
+  nivelesData = await Auth.get('/api/niveles');
+  const tbody = document.getElementById('niveles-tbody');
+  tbody.innerHTML = nivelesData.map((n, i) => `<tr>
+    <td><input type="text" value="${n.nombre}" onchange="nivelesData[${i}].nombre=this.value"></td>
+    <td><select onchange="nivelesData[${i}].tipo=this.value">
+      ${['basico','intermedio','avanzado','elite'].map(t => `<option ${n.tipo===t?'selected':''}>${t}</option>`).join('')}
+    </select></td>
+    <td><input type="text" value="${n.distancia||''}" onchange="nivelesData[${i}].distancia=this.value"></td>
+    <td><input type="text" value="${n.diana||''}" onchange="nivelesData[${i}].diana=this.value"></td>
+    <td><input type="number" value="${n.flechas||''}" style="width:70px;" onchange="nivelesData[${i}].flechas=+this.value||null"></td>
+    <td><input type="number" value="${n.porcentaje||''}" style="width:60px;" onchange="updatePct(${i},+this.value)"></td>
+    <td><input type="text" value="${n.evaluaciones||''}" onchange="nivelesData[${i}].evaluaciones=this.value"></td>
+    <td><input type="text" value="${n.notas||''}" onchange="nivelesData[${i}].notas=this.value"></td>
+    <td><button class="toggle-pend ${n.pendiente_votacion?'active':''}" onclick="togglePend(${i},this)">${n.pendiente_votacion?'Sí':'No'}</button></td>
+  </tr>`).join('');
+}
+function updatePct(i, val) {
+  nivelesData[i].porcentaje = val || null;
+  const n = nivelesData[i];
+  if (n.flechas && val) {
+    n.puntaje_requerido = Math.round(n.flechas * 10 * val / 100);
+    n.puntaje_total = n.flechas * 10;
+  }
+}
+function togglePend(i, btn) {
+  nivelesData[i].pendiente_votacion = !nivelesData[i].pendiente_votacion;
+  btn.textContent = nivelesData[i].pendiente_votacion ? 'Sí' : 'No';
+  btn.classList.toggle('active', nivelesData[i].pendiente_votacion);
+}
+async function saveNiveles() {
+  await Auth.put('/api/niveles', nivelesData);
+  toast('✅ Niveles guardados');
+}
+
+// ── SESIONES ─────────────────────────────────────────────────────────────────
+let sesionesData = {};
+async function loadSesiones() {
+  sesionesData = await Auth.get('/api/sesiones');
+  const el = document.getElementById('sesiones-edit-container');
+  el.innerHTML = sesionesData.sesiones.map((s, si) => `
+    <div class="sesion-edit">
+      <h4>Sesión ${s.numero}: <input type="text" value="${s.titulo}" style="background:var(--bg4);border:1px solid var(--border2);border-radius:6px;padding:4px 8px;color:#fff;font-size:0.95rem;font-weight:700;" onchange="sesionesData.sesiones[${si}].titulo=this.value"></h4>
+      <ul class="regla-edit-list" id="ses-items-${si}">
+        ${s.contenidos.map((c, ci) => `<li>
+          <input type="text" value="${c}" onchange="sesionesData.sesiones[${si}].contenidos[${ci}]=this.value">
+          <button class="del-btn" onclick="removeSesItem(${si},${ci})">✕</button>
+        </li>`).join('')}
+      </ul>
+      <div class="add-item-row">
+        <input type="text" id="ses-new-${si}" placeholder="Nuevo contenido...">
+        <button class="btn btn-primary" style="font-size:0.82rem;padding:6px 14px;" onclick="addSesItem(${si})">+ Añadir</button>
+      </div>
+    </div>`).join('');
+}
+function addSesItem(si) {
+  const input = document.getElementById('ses-new-' + si);
+  const val = input.value.trim();
+  if (!val) return;
+  sesionesData.sesiones[si].contenidos.push(val);
+  input.value = '';
+  sectionLoaded['sesiones-admin'] = false;
+  loadSesiones();
+}
+function removeSesItem(si, ci) {
+  sesionesData.sesiones[si].contenidos.splice(ci, 1);
+  sectionLoaded['sesiones-admin'] = false;
+  loadSesiones();
+}
+async function saveSesiones() {
+  await Auth.put('/api/sesiones', sesionesData);
+  toast('✅ Sesiones guardadas');
+}
+
+// ── REGLAS ────────────────────────────────────────────────────────────────────
+let reglasData = {};
+async function loadReglas() {
+  reglasData = await Auth.get('/api/reglas');
+  const el = document.getElementById('reglas-edit-container');
+  el.innerHTML = reglasData.secciones.map((s, si) => `
+    <div class="sesion-edit">
+      <h4>${s.icono} ${s.titulo}</h4>
+      <ul class="regla-edit-list" id="reg-items-${si}">
+        ${s.reglas.map((r, ri) => `<li>
+          <input type="text" value="${r}" onchange="reglasData.secciones[${si}].reglas[${ri}]=this.value">
+          <button class="del-btn" onclick="removeRegla(${si},${ri})">✕</button>
+        </li>`).join('')}
+      </ul>
+      <div class="add-item-row">
+        <input type="text" id="reg-new-${si}" placeholder="Nueva regla...">
+        <button class="btn btn-primary" style="font-size:0.82rem;padding:6px 14px;" onclick="addRegla(${si})">+ Añadir</button>
+      </div>
+    </div>`).join('');
+}
+function addRegla(si) {
+  const input = document.getElementById('reg-new-' + si);
+  const val = input.value.trim();
+  if (!val) return;
+  reglasData.secciones[si].reglas.push(val);
+  input.value = '';
+  sectionLoaded['reglas-admin'] = false;
+  loadReglas();
+}
+function removeRegla(si, ri) {
+  reglasData.secciones[si].reglas.splice(ri, 1);
+  sectionLoaded['reglas-admin'] = false;
+  loadReglas();
+}
+async function saveReglas() {
+  await Auth.put('/api/reglas', reglasData);
+  toast('✅ Reglas guardadas');
+}
+
+// ── MICRO ─────────────────────────────────────────────────────────────────────
+let microData = {};
+async function loadMicro() {
+  microData = await Auth.get('/api/micro');
+  const el = document.getElementById('micro-edit-container');
+  el.innerHTML = microData.categorias.map((c, ci) => `
+    <div class="sesion-edit">
+      <h4>${c.icono} ${c.titulo}</h4>
+      <ul class="regla-edit-list" id="mic-items-${ci}">
+        ${c.items.map((item, ii) => `<li>
+          <input type="text" value="${item}" onchange="microData.categorias[${ci}].items[${ii}]=this.value">
+          <button class="del-btn" onclick="removeMicroItem(${ci},${ii})">✕</button>
+        </li>`).join('')}
+      </ul>
+      <div class="add-item-row">
+        <input type="text" id="mic-new-${ci}" placeholder="Nuevo item...">
+        <button class="btn btn-primary" style="font-size:0.82rem;padding:6px 14px;" onclick="addMicroItem(${ci})">+ Añadir</button>
+      </div>
+    </div>`).join('');
+}
+function addMicroItem(ci) {
+  const input = document.getElementById('mic-new-' + ci);
+  const val = input.value.trim();
+  if (!val) return;
+  microData.categorias[ci].items.push(val);
+  input.value = '';
+  sectionLoaded['micro-admin'] = false;
+  loadMicro();
+}
+function removeMicroItem(ci, ii) {
+  microData.categorias[ci].items.splice(ii, 1);
+  sectionLoaded['micro-admin'] = false;
+  loadMicro();
+}
+async function saveMicro() {
+  await Auth.put('/api/micro', microData);
+  toast('✅ MICRO guardado');
+}
+
+// ── MACRO ─────────────────────────────────────────────────────────────────────
+let macroData = {};
+async function loadMacro() {
+  macroData = await Auth.get('/api/macro');
+  const el = document.getElementById('macro-edit-container');
+  el.innerHTML = macroData.pilares.map((p, pi) => `
+    <div class="sesion-edit">
+      <h4>${p.icono} ${p.titulo}</h4>
+      <ul class="regla-edit-list" id="mac-items-${pi}">
+        ${p.items.map((item, ii) => `<li>
+          <input type="text" value="${item}" onchange="macroData.pilares[${pi}].items[${ii}]=this.value">
+          <button class="del-btn" onclick="removeMacroItem(${pi},${ii})">✕</button>
+        </li>`).join('')}
+      </ul>
+      <div class="add-item-row">
+        <input type="text" id="mac-new-${pi}" placeholder="Nuevo item...">
+        <button class="btn btn-primary" style="font-size:0.82rem;padding:6px 14px;" onclick="addMacroItem(${pi})">+ Añadir</button>
+      </div>
+    </div>`).join('');
+}
+function addMacroItem(pi) {
+  const input = document.getElementById('mac-new-' + pi);
+  const val = input.value.trim();
+  if (!val) return;
+  macroData.pilares[pi].items.push(val);
+  input.value = '';
+  sectionLoaded['macro-admin'] = false;
+  loadMacro();
+}
+function removeMacroItem(pi, ii) {
+  macroData.pilares[pi].items.splice(ii, 1);
+  sectionLoaded['macro-admin'] = false;
+  loadMacro();
+}
+async function saveMacro() {
+  await Auth.put('/api/macro', macroData);
+  toast('✅ MACRO guardado');
+}
+
+// ── USUARIOS ──────────────────────────────────────────────────────────────────
+let usersData = [];
+let editingUserId = null;
+async function loadUsers() {
+  usersData = await Auth.get('/api/usuarios');
+  const me = Auth.getUser();
+  const el = document.getElementById('users-table-body');
+  el.innerHTML = usersData.map(u => `<tr class="${u.id === me.id ? 'user-me' : ''}">
+    <td>${u.nombre}</td>
+    <td>${u.email}</td>
+    <td><span class="badge-rol ${u.rol}">${u.rol}</span></td>
+    <td><span class="${u.activo ? 'badge-activo' : 'badge-inactivo'}">${u.activo ? '✅ Activo' : '❌ Inactivo'}</span></td>
+    <td>${u.creado || '—'}</td>
+    <td>
+      <button class="btn btn-outline" style="font-size:0.78rem;padding:4px 10px;" onclick="openEditUser(${u.id})">✏️ Editar</button>
+      ${u.id !== me.id ? `<button class="btn btn-danger" style="font-size:0.78rem;padding:4px 10px;margin-left:4px;" onclick="deleteUser(${u.id})">🗑️</button>` : ''}
+    </td>
+  </tr>`).join('');
+}
+function openNewUser() {
+  editingUserId = null;
+  document.getElementById('modal-title').textContent = '➕ Nuevo Usuario';
+  document.getElementById('modal-nombre').value = '';
+  document.getElementById('modal-email').value = '';
+  document.getElementById('modal-password').value = '';
+  document.getElementById('modal-rol').value = 'miembro';
+  document.getElementById('modal-pw-group').querySelector('label').innerHTML = 'Contraseña';
+  document.getElementById('user-modal').classList.add('open');
+}
+function openEditUser(id) {
+  editingUserId = id;
+  const u = usersData.find(x => x.id === id);
+  if (!u) return;
+  document.getElementById('modal-title').textContent = '✏️ Editar Usuario';
+  document.getElementById('modal-nombre').value = u.nombre;
+  document.getElementById('modal-email').value = u.email;
+  document.getElementById('modal-password').value = '';
+  document.getElementById('modal-rol').value = u.rol;
+  document.getElementById('modal-pw-group').querySelector('label').innerHTML = 'Nueva contraseña <span style="font-size:0.75rem;color:#546e7a;">(dejar vacío para no cambiar)</span>';
+  document.getElementById('user-modal').classList.add('open');
+}
+function closeUserModal() {
+  document.getElementById('user-modal').classList.remove('open');
+  editingUserId = null;
+}
+async function saveUser() {
+  const nombre   = document.getElementById('modal-nombre').value.trim();
+  const email    = document.getElementById('modal-email').value.trim();
+  const password = document.getElementById('modal-password').value;
+  const rol      = document.getElementById('modal-rol').value;
+  if (!nombre || !email) { toast('Nombre y email son requeridos', 'error'); return; }
+  if (!editingUserId && !password) { toast('La contraseña es requerida para nuevos usuarios', 'error'); return; }
+  let res;
+  if (editingUserId) {
+    const body = { nombre, email, rol };
+    if (password) body.password = password;
+    res = await Auth.put('/api/usuarios/' + editingUserId, body);
+  } else {
+    res = await Auth.fetch('/api/usuarios', { method: 'POST', body: JSON.stringify({ nombre, email, password, rol }), headers: { 'Content-Type': 'application/json' } });
+  }
+  if (res && res.ok) {
+    toast(editingUserId ? '✅ Usuario actualizado' : '✅ Usuario creado');
+    closeUserModal();
+    sectionLoaded['usuarios-admin'] = false;
+    loadUsers();
+  } else {
+    const err = res ? await res.json() : {};
+    toast(err.error || 'Error al guardar', 'error');
+  }
+}
+async function deleteUser(id) {
+  if (!confirm('¿Eliminar este usuario?')) return;
+  const res = await Auth.fetch('/api/usuarios/' + id, { method: 'DELETE' });
+  if (res && res.ok) { toast('Usuario eliminado'); sectionLoaded['usuarios-admin'] = false; loadUsers(); }
+  else toast('Error al eliminar', 'error');
+}
+
+// ── MI CUENTA ─────────────────────────────────────────────────────────────────
+async function cambiarPassword() {
+  const actual    = document.getElementById('pw-actual').value;
+  const nueva     = document.getElementById('pw-nueva').value;
+  const confirmar = document.getElementById('pw-confirmar').value;
+  if (!actual || !nueva || !confirmar) { toast('Completa todos los campos', 'error'); return; }
+  if (nueva !== confirmar) { toast('Las contraseñas no coinciden', 'error'); return; }
+  if (nueva.length < 8) { toast('La contraseña debe tener al menos 8 caracteres', 'error'); return; }
+  const res = await Auth.fetch('/api/mi-password', { method: 'PUT', body: JSON.stringify({ actual, nueva }) });
+  if (res && res.ok) {
+    toast('✅ Contraseña actualizada');
+    document.getElementById('pw-actual').value = '';
+    document.getElementById('pw-nueva').value = '';
+    document.getElementById('pw-confirmar').value = '';
+  } else {
+    const err = res ? await res.json() : {};
+    toast(err.error || 'Error al cambiar contraseña', 'error');
+  }
+}
+</script>
+</body>
+</html>
+        

@@ -1,0 +1,87 @@
+{
+  "fuente": "WA1 — Santiago Avitia / Tablas de fabricantes",
+  "formulas_jalon": [
+    { "nombre": "Fórmula 1", "formula": "Jalón = Envergadura (pulg) ÷ 2.5" },
+    { "nombre": "Fórmula 2", "formula": "Jalón = (Envergadura (pulg) − 15) ÷ 2" }
+  ],
+  "tabla_arco_por_jalon": [
+    { "jalon_min": 14, "jalon_max": 16, "largo_arco": "48\"", "notas": "Muy pequeño – niños 6-8 años" },
+    { "jalon_min": 17, "jalon_max": 20, "largo_arco": "54\"", "notas": "Infantil" },
+    { "jalon_min": 20, "jalon_max": 22, "largo_arco": "58\"", "notas": "Cadete pequeño" },
+    { "jalon_min": 22, "jalon_max": 24, "largo_arco": "60–62\"", "notas": "Cadete / Sub-18" },
+    { "jalon_min": 24, "jalon_max": 26, "largo_arco": "64–66\"", "notas": "Junior / Adulto estándar" },
+    { "jalon_min": 26, "jalon_max": 28, "largo_arco": "66–68\"", "notas": "Adulto" },
+    { "jalon_min": 28, "jalon_max": 31, "largo_arco": "68–70\"", "notas": "Adulto avanzado" }
+  ],
+  "tabla_libraje_por_peso": [
+    { "peso_min": 0,  "peso_max": 25,  "libraje": "10–15 lbs", "notas": "Niños menores de 25 kg" },
+    { "peso_min": 25, "peso_max": 35,  "libraje": "12–18 lbs", "notas": "Niños 25–35 kg" },
+    { "peso_min": 35, "peso_max": 45,  "libraje": "14–22 lbs", "notas": "Infantil / Cadete pequeño" },
+    { "peso_min": 45, "peso_max": 55,  "libraje": "15–25 lbs", "notas": "Niño alto / Sub-14" },
+    { "peso_min": 55, "peso_max": 65,  "libraje": "20–28 lbs", "notas": "Sub-18 / Adulto principiante" },
+    { "peso_min": 65, "peso_max": 80,  "libraje": "24–34 lbs", "notas": "Adulto regular" },
+    { "peso_min": 80, "peso_max": 999, "libraje": "28–40 lbs", "notas": "Adulto fuerte / avanzado" }
+  ],
+  "tabla_longitud_flecha": [
+    { "jalon_min": 14, "jalon_max": 18, "long_flecha": "18–20\"", "notas": "Flechas de iniciación cortas" },
+    { "jalon_min": 18, "jalon_max": 22, "long_flecha": "20–24\"", "notas": "" },
+    { "jalon_min": 22, "jalon_max": 24, "long_flecha": "24–26\"", "notas": "" },
+    { "jalon_min": 24, "jalon_max": 26, "long_flecha": "26–28\"", "notas": "Rango más común" },
+    { "jalon_min": 26, "jalon_max": 28, "long_flecha": "28–30\"", "notas": "" },
+    { "jalon_min": 28, "jalon_max": 31, "long_flecha": "30–32\"", "notas": "Arqueros altos" }
+  ],
+  "pvc_guia": {
+    "descripcion": "Guía para construir arcos recurvos de PVC de bajo costo — ideales para iniciación. Un arquero con jalón mayor a 25\" genera ±1 lb adicional de potencia sobre el arco.",
+    "nota_importante": "El sistema de medición en arquería usa pulgadas y libras (sistema inglés) — es el estándar mundial de los fabricantes.",
+    "materiales": [
+      "Tubo PVC de ½\" o ¾\" de pared gruesa (cédula 40)",
+      "Cuerda de arco (dacron) o cuerda de nylon trenzado",
+      "Cinta de agarre (grip tape)",
+      "Silicona caliente para asegurar nocks de cuerda"
+    ],
+    "modelos": [
+      {
+        "nombre": "PVC Infantil",
+        "para": "Niños 6–10 años, jalón 14–20\"",
+        "largo_tubo": "48\" (122 cm)",
+        "diametro": "½\" cédula 40",
+        "libraje_aprox": "8–12 lbs",
+        "largo_cuerda": "44\" (112 cm) — 4\" menos que el arco",
+        "pasos": [
+          "Cortar tubo PVC a 48\" (122 cm)",
+          "Calentar ambos extremos 3\" con pistola de calor hasta que sea flexible",
+          "Doblar cada extremo ~30° para formar los limbs",
+          "Hacer muesca (nock) en cada extremo con navaja o dremel para la cuerda",
+          "Atar nocks de cuerda dacron en cada extremo",
+          "Envolver el centro con grip tape como empuñadura",
+          "Longitud de cuerda: largo del arco − 4\" (mide con arco aplanado)"
+        ]
+      },
+      {
+        "nombre": "PVC Juvenil / Adulto",
+        "para": "Adolescentes y adultos principiantes, jalón 22–26\"",
+        "largo_tubo": "62\" (157 cm)",
+        "diametro": "¾\" cédula 40",
+        "libraje_aprox": "15–20 lbs",
+        "largo_cuerda": "58\" (147 cm) — 4\" menos que el arco",
+        "pasos": [
+          "Cortar tubo PVC a 62\" (157 cm)",
+          "Calentar ambos extremos 4\" con pistola de calor",
+          "Doblar cada extremo ~30–35° para los limbs",
+          "Hacer muesca en cada extremo para la cuerda",
+          "Atar nocks de cuerda dacron",
+          "Marcar el centro y envolver con grip tape (8–10 cm de empuñadura)",
+          "Longitud de cuerda: largo del arco − 4\""
+        ]
+      }
+    ],
+    "tabla_tension_vs_temperatura": "A mayor temperatura el PVC se vuelve más flexible y reduce el libraje. En clima frío aumenta. Recomendado para Honduras: verificar libraje al inicio de cada sesión de entrenamiento.",
+    "consejos": [
+      "Usar cédula 40 (pared gruesa) — NO usar tubería doméstica delgada",
+      "El nock de la flecha debe quedar a ½\" por encima del punto de equilibrio del arco (nocking point)",
+      "Marcar el nocking point con hilo de dental encerado o nock set metálico",
+      "Revisar el arco antes de cada uso — no disparar si hay grietas en el PVC",
+      "Longitud de flecha = jalón medio + 1\" mínimo de seguridad"
+    ]
+  }
+}

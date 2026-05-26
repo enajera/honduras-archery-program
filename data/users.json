@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "nombre": "Elvin Nájera",
+    "email": "elvin7n@gmail.com",
+    "password": "$2b$10$JGPQFP/XsLLgsDikMxbdPe5KGYqvSJjSfNvNd.j.1Yw1.JJBcS572",
+    "rol": "admin",
+    "activo": true,
+    "creado": "2026-05-26"
+  },
+  {
+    "id": 1779812226110,
+    "nombre": "Caleb Rivera",
+    "email": "crivera@fehtarco.hn",
+    "password": "$2b$10$Nu9/RYVJLraXFOE9W2Ox5.QdZOUPXocthRYjWygRGWlYusyI6nOVu",
+    "rol": "miembro",
+    "activo": true,
+    "creado": "2026-05-26"
+  },
+  {
+    "id": 1779812226111,
+    "nombre": "Lester Silva",
+    "email": "lsilva@fehtarco.hn",
+    "password": "$2b$10$Nu9/RYVJLraXFOE9W2Ox5.QdZOUPXocthRYjWygRGWlYusyI6nOVu",
+    "rol": "miembro",
+    "activo": true,
+    "creado": "2026-05-26"
+  },
+  {
+    "id": 1779812226112,
+    "nombre": "Kevin Zúniga",
+    "email": "kzuniga@fehtarco.hn",
+    "password": "$2b$10$Nu9/RYVJLraXFOE9W2Ox5.QdZOUPXocthRYjWygRGWlYusyI6nOVu",
+    "rol": "miembro",
+    "activo": true,
+    "creado": "2026-05-26"
+  }
+]

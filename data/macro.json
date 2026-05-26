@@ -1,0 +1,58 @@
+{
+  "descripcion": "Visión a largo plazo para el desarrollo sostenido del tiro con arco en Honduras.",
+  "pilares": [
+    {
+      "id": "escuela",
+      "titulo": "Escuela (desde 8 años)",
+      "icono": "🧒",
+      "color": "verde",
+      "items": [
+        "Equipo básico para niños",
+        "Capacitación de instructores",
+        "Tiro con arco en el CN (Centros/Congreso Nacional)",
+        "Integración con sistema escolar público"
+      ],
+      "nota": "Edad mínima de ingreso: 8 años"
+    },
+    {
+      "id": "expansion",
+      "titulo": "Expansión Institucional",
+      "icono": "🏛️",
+      "color": "azul",
+      "items": ["Clubes regionales", "Universidades", "Ciudades", "Centros de entrenamiento"]
+    },
+    {
+      "id": "alto_rendimiento",
+      "titulo": "Centros de Alto Rendimiento",
+      "icono": "🏆",
+      "color": "naranja",
+      "items": [
+        "1 centro por región",
+        "Equipamiento especializado",
+        "Becas y residencias para atletas"
+      ]
+    },
+    {
+      "id": "francisco_morazan",
+      "titulo": "Francisco Morazán (FM)",
+      "icono": "🏟️",
+      "color": "morado",
+      "items": ["FM / Estadio principal", "Valle de Ángeles", "Tegucigalpa / Comayagua", "Talanga"],
+      "municipios": ["Tegucigalpa", "Valle de Ángeles", "Comayagua", "Talanga"]
+    },
+    {
+      "id": "tiro3d",
+      "titulo": "Tiro 3D",
+      "icono": "🎯",
+      "color": "rojo",
+      "items": [
+        "Modalidad recreativa y turística",
+        "Integración en ruta recreativa",
+        "Potencial de exhibición y turismo"
+      ]
+    }
+  ],
+  "notas": [
+    "CN pendiente de definir: podría ser Centros Nacionales de salud/educación o Congreso Nacional como ente de apoyo legislativo/presupuestario."
+  ]
+}

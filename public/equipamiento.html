@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equipamiento — Honduras Archery Program</title>
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  :root { --wa1:#f59e0b; --wa1-bg:#1c1400; --wa1-border:#78350f; }
+
+  .wa1-badge { display:inline-flex;align-items:center;gap:5px;background:var(--wa1-bg);border:1px solid var(--wa1);border-radius:20px;padding:3px 10px;font-size:.72rem;font-weight:700;color:var(--wa1);letter-spacing:1px; }
+
+  .calc-box { background:#1e2a3a;border-radius:14px;padding:24px;border:1px solid #2a3f55;max-width:680px;margin-bottom:28px; }
+  .calc-box h3 { font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:4px; }
+  .calc-subtitle { font-size:.82rem;color:#78909c;margin-bottom:18px; }
+  .calc-grid { display:grid;grid-template-columns:1fr 1fr;gap:14px; }
+  .calc-field label { display:block;font-size:.8rem;color:#90a4ae;margin-bottom:5px;font-weight:600; }
+  .calc-field input, .calc-field select {
+    width:100%;background:#0d1a2a;border:1.5px solid #2a3f55;border-radius:7px;
+    padding:9px 12px;color:#e0e0e0;font-size:.9rem;outline:none;transition:border-color .2s;
+  }
+  .calc-field input:focus,.calc-field select:focus{border-color:#f59e0b;}
+  .btn-calc { margin-top:16px;background:linear-gradient(135deg,#b45309,#f59e0b);border:none;border-radius:8px;padding:11px 24px;color:#000;font-size:.88rem;font-weight:700;cursor:pointer;transition:opacity .2s; }
+  .btn-calc:hover{opacity:.85;}
+
+  .result-box { background:#1c1400;border:2px solid var(--wa1);border-radius:12px;padding:20px;margin-top:16px;display:none; }
+  .result-box.show{display:block;animation:fadeIn .3s ease;}
+  .result-title { font-size:.78rem;font-weight:700;color:var(--wa1);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px; }
+  .result-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px; }
+  .result-item { background:#2a1a00;border-radius:8px;padding:12px;text-align:center; }
+  .result-item .val { font-size:1.3rem;font-weight:800;color:var(--wa1); }
+  .result-item .lbl { font-size:.75rem;color:#78909c;margin-top:3px; }
+
+  .steps-list { list-style:none;counter-reset:step; }
+  .steps-list li { counter-increment:step;padding:8px 0 8px 48px;border-bottom:1px solid #2a3f55;font-size:.86rem;color:#b0bec5;position:relative;line-height:1.5; }
+  .steps-list li:last-child{border-bottom:none;}
+  .steps-list li::before { content:counter(step);position:absolute;left:0;top:6px;width:28px;height:28px;background:var(--wa1-bg);border:1.5px solid var(--wa1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;color:var(--wa1); }
+
+  .pvc-card { background:#1e2a3a;border-radius:12px;border:1px solid #2a3f55;overflow:hidden;margin-bottom:16px; }
+  .pvc-card-head { background:#162232;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer; }
+  .pvc-card-head h4 { font-size:.95rem;font-weight:700;color:#fff; }
+  .pvc-card-head .badge-lib { background:#2a1a00;border:1px solid var(--wa1);border-radius:20px;padding:3px 10px;font-size:.78rem;color:var(--wa1);font-weight:700; }
+  .pvc-card-body { padding:16px 18px; }
+  .pvc-specs { display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:14px; }
+  .pvc-spec { background:#162232;border-radius:8px;padding:10px 12px; }
+  .pvc-spec .key { font-size:.72rem;color:#546e7a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px; }
+  .pvc-spec .val { font-size:.92rem;font-weight:700;color:#e0e0e0; }
+
+  .tip-list { list-style:none; }
+  .tip-list li { font-size:.84rem;color:#90a4ae;padding:5px 0;border-bottom:1px solid #2a3f55;display:flex;gap:8px;align-items:flex-start; }
+  .tip-list li:last-child{border-bottom:none;}
+  .tip-list li::before{content:"💡";flex-shrink:0;}
+
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="app-header" style="background:linear-gradient(135deg,#1c1400 0%,#1a2030 100%);border-bottom-color:#f59e0b;">
+  <div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+      <span class="wa1-badge">🎓 WA1 — Santiago Avitia</span>
+    </div>
+    <h1>🏹 Equipamiento y Calculadora de Arco</h1>
+    <p>Selección de arco ideal, flecha ideal y guía de construcción PVC</p>
+  </div>
+  <div class="header-right">
+    <div id="user-info"></div>
+    <a href="index.html" class="btn btn-outline" style="font-size:.82rem;">← Volver</a>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" onclick="showTab('calc',this)">🧮 Calculadora</button>
+  <button class="tab-btn" onclick="showTab('tablas',this)">📊 Tablas de Referencia</button>
+  <button class="tab-btn" onclick="showTab('pvc',this)">🪵 Construcción PVC</button>
+</nav>
+
+<div class="content" id="equip-content">
+  <div style="color:#90a4ae;padding:20px;">Cargando...</div>
+</div>
+
+<footer>Honduras Archery Program · Tablas basadas en WA1 — Santiago Avitia / estándares de fabricantes</footer>
+<div class="toast" id="toast"></div>
+
+<script src="js/auth.js"></script>
+<script>
+if (!Auth.require()) throw new Error('not auth');
+Auth.renderUser('user-info');
+
+let DATA = null;
+let CURRENT_TAB = 'calc';
+
+async function init() {
+  const data = await Auth.get('/api/equipamiento');
+  if (!data) return;
+  DATA = data;
+  renderTab('calc');
+}
+
+function showTab(id, btn) {
+  CURRENT_TAB = id;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderTab(id);
+}
+
+function renderTab(id) {
+  const el = document.getElementById('equip-content');
+  if (id === 'calc')   el.innerHTML = buildCalc();
+  if (id === 'tablas') el.innerHTML = buildTablas();
+  if (id === 'pvc')    el.innerHTML = buildPVC();
+}
+
+// ── CALCULADORA ────────────────────────────────────────────────────────────────
+function buildCalc() {
+  return `
+    <p class="section-title">Calculadora de Equipamiento Ideal</p>
+    <p class="section-subtitle">Ingresa las medidas anatómicas del arquero para obtener las recomendaciones.</p>
+
+    <div class="calc-box">
+      <h3>📏 Medidas del Arquero</h3>
+      <p class="calc-subtitle">Usa cinta métrica. La envergadura se mide con los brazos extendidos horizontalmente, de punta a punta de dedos.</p>
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label>Nombre del arquero</label>
+          <input type="text" id="c-nombre" placeholder="ej. Carlos Martínez">
+        </div>
+        <div class="calc-field">
+          <label>Edad</label>
+          <input type="number" id="c-edad" min="5" max="80" placeholder="ej. 12">
+        </div>
+        <div class="calc-field">
+          <label>Peso (kg)</label>
+          <input type="number" id="c-peso" min="10" max="150" step="0.5" placeholder="ej. 45">
+        </div>
+        <div class="calc-field">
+          <label>Altura (cm)</label>
+          <input type="number" id="c-altura" min="80" max="220" placeholder="ej. 145">
+        </div>
+        <div class="calc-field">
+          <label>Envergadura (cm)</label>
+          <input type="number" id="c-enverg" min="50" max"250" step="0.5" placeholder="ej. 148">
+        </div>
+        <div class="calc-field">
+          <label>Nivel</label>
+          <select id="c-nivel">
+            <option value="iniciacion">Iniciación</option>
+            <option value="basico">Básico</option>
+            <option value="intermedio">Intermedio</option>
+            <option value="avanzado">Avanzado</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-calc" onclick="calcular()">Calcular equipamiento ideal →</button>
+      <div class="result-box" id="result-box"></div>
+    </div>
+
+    <div class="nota">
+      <span>📐</span>
+      <div>
+        <strong>Fórmulas para el Jalón Medio:</strong><br>
+        <span style="font-family:monospace;font-size:.9rem;">
+          Jalón (pulg) = Envergadura (pulg) ÷ 2.5<br>
+          Jalón (pulg) = (Envergadura (pulg) − 15) ÷ 2
+        </span><br>
+        <span style="font-size:.8rem;color:#78909c;">1 pulgada = 2.54 cm · El sistema inglés es el estándar mundial en arquería</span>
+      </div>
+    </div>`;
+}
+
+function calcular() {
+  const nombre  = document.getElementById('c-nombre').value || 'El arquero';
+  const peso    = parseFloat(document.getElementById('c-peso').value);
+  const altura  = parseFloat(document.getElementById('c-altura').value);
+  const envergCm= parseFloat(document.getElementById('c-enverg').value);
+  const nivel   = document.getElementById('c-nivel').value;
+
+  if (!peso || !envergCm) {
+    alert('Ingresa al menos el peso y la envergadura.'); return;
+  }
+
+  const envergPulg = envergCm / 2.54;
+  const jalon1 = envergPulg / 2.5;
+  const jalon2 = (envergPulg - 15) / 2;
+  const jalón  = Math.round((jalon1 + jalon2) / 2 * 10) / 10;
+
+  // Find bow size
+  const bowRec = DATA.tabla_arco_por_jalon.find(r => jalón >= r.jalon_min && jalón < r.jalon_max)
+              || DATA.tabla_arco_por_jalon[DATA.tabla_arco_por_jalon.length - 1];
+  // Find libraje
+  const libRec = DATA.tabla_libraje_por_peso.find(r => peso >= r.peso_min && peso < r.peso_max)
+              || DATA.tabla_libraje_por_peso[DATA.tabla_libraje_por_peso.length - 1];
+  // Find arrow length
+  const arrRec = DATA.tabla_longitud_flecha.find(r => jalón >= r.jalon_min && jalón < r.jalon_max)
+              || DATA.tabla_longitud_flecha[DATA.tabla_longitud_flecha.length - 1];
+  const longFlechaCm = Math.round((jalón + 1) * 2.54);
+
+  // PVC recommendation
+  const pvcModel = jalón <= 22 ? DATA.pvc_guia.modelos[0] : DATA.pvc_guia.modelos[1];
+
+  const box = document.getElementById('result-box');
+  box.className = 'result-box show';
+  box.innerHTML = `
+    <div class="result-title">🎯 Resultados para ${nombre}</div>
+    <div class="result-grid">
+      <div class="result-item">
+        <div class="val">${jalón.toFixed(1)}"</div>
+        <div class="lbl">Jalón medio</div>
+      </div>
+      <div class="result-item">
+        <div class="val">${envergPulg.toFixed(1)}"</div>
+        <div class="lbl">Envergadura</div>
+      </div>
+      <div class="result-item">
+        <div class="val">${bowRec.largo_arco}</div>
+        <div class="lbl">Largo del arco</div>
+      </div>
+      <div class="result-item">
+        <div class="val">${libRec.libraje}</div>
+        <div class="lbl">Libraje recomendado</div>
+      </div>
+      <div class="result-item">
+        <div class="val">${arrRec.long_flecha}</div>
+        <div class="lbl">Longitud de flecha</div>
+      </div>
+      <div class="result-item">
+        <div class="val">${longFlechaCm} cm</div>
+        <div class="lbl">Flecha en cm</div>
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:#2a1a00;border-radius:8px;font-size:.84rem;color:#fde68a;">
+      <strong>📝 Notas:</strong> ${bowRec.notas || ''} · ${libRec.notas || ''}
+    </div>
+    ${nivel === 'iniciacion' ? `
+    <div style="margin-top:10px;padding:12px;background:#0d2137;border-radius:8px;font-size:.84rem;color:#90caf9;">
+      <strong>🪵 PVC sugerido:</strong> ${pvcModel.nombre} — ${pvcModel.para} (${pvcModel.libraje_aprox})
+    </div>` : ''}
+    <div style="margin-top:10px;"><span class="wa1-badge">🎓 WA1 · Santiago Avitia</span></div>`;
+}
+
+// ── TABLAS ─────────────────────────────────────────────────────────────────────
+function buildTablas() {
+  const bowRows = DATA.tabla_arco_por_jalon.map(r => `
+    <tr>
+      <td>${r.jalon_min}" – ${r.jalon_max}"</td>
+      <td><strong>${r.largo_arco}</strong></td>
+      <td style="color:#90a4ae;font-size:.82rem;">${r.notas}</td>
+    </tr>`).join('');
+
+  const libRows = DATA.tabla_libraje_por_peso.map(r => `
+    <tr>
+      <td>${r.peso_min === 0 ? '< 25' : r.peso_min + ' – ' + (r.peso_max === 999 ? '80+' : r.peso_max)} kg</td>
+      <td><strong style="color:#f59e0b;">${r.libraje}</strong></td>
+      <td style="color:#90a4ae;font-size:.82rem;">${r.notas}</td>
+    </tr>`).join('');
+
+  const arrRows = DATA.tabla_longitud_flecha.map(r => `
+    <tr>
+      <td>${r.jalon_min}" – ${r.jalon_max}"</td>
+      <td><strong>${r.long_flecha}</strong></td>
+      <td style="color:#90a4ae;font-size:.82rem;">${r.notas || '—'}</td>
+    </tr>`).join('');
+
+  return `
+    <p class="section-title">Tablas de Referencia — Equipamiento</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+
+      <div>
+        <h3 style="color:#f59e0b;border-left:4px solid #f59e0b;padding-left:10px;margin-bottom:12px;">🏹 Largo del Arco por Jalón</h3>
+        <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Jalón medio</th><th>Largo arco</th><th>Perfil</th></tr></thead>
+          <tbody>${bowRows}</tbody>
+        </table>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="color:#f59e0b;border-left:4px solid #f59e0b;padding-left:10px;margin-bottom:12px;">💪 Libraje por Peso Corporal</h3>
+        <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Peso (kg)</th><th>Libraje</th><th>Perfil</th></tr></thead>
+          <tbody>${libRows}</tbody>
+        </table>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="color:#f59e0b;border-left:4px solid #f59e0b;padding-left:10px;margin-bottom:12px;">🎯 Longitud de Flecha por Jalón</h3>
+        <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Jalón medio</th><th>Long. flecha</th><th>Nota</th></tr></thead>
+          <tbody>${arrRows}</tbody>
+        </table>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="nota" style="margin-top:20px;">
+      <span>📐</span>
+      <div>
+        <strong>Fórmulas de jalón medio (WA1):</strong><br>
+        ${DATA.formulas_jalon.map(f=>`<span style="font-family:monospace;">${f.formula}</span>`).join('<br>')}
+        <br><span style="font-size:.8rem;color:#78909c;">Fuente: ${DATA.fuente}</span>
+      </div>
+    </div>`;
+}
+
+// ── PVC ────────────────────────────────────────────────────────────────────────
+function buildPVC() {
+  const g = DATA.pvc_guia;
+  const models = g.modelos.map(m => `
+    <div class="pvc-card">
+      <div class="pvc-card-head" onclick="togglePVC(this)">
+        <div>
+          <h4>🪵 ${m.nombre}</h4>
+          <div style="font-size:.8rem;color:#90a4ae;margin-top:3px;">Para: ${m.para}</div>
+        </div>
+        <span class="badge-lib">${m.libraje_aprox}</span>
+      </div>
+      <div class="pvc-card-body">
+        <div class="pvc-specs">
+          <div class="pvc-spec"><div class="key">Largo del tubo</div><div class="val">${m.largo_tubo}</div></div>
+          <div class="pvc-spec"><div class="key">Diámetro</div><div class="val">${m.diametro}</div></div>
+          <div class="pvc-spec"><div class="key">Libraje aprox.</div><div class="val">${m.libraje_aprox}</div></div>
+          <div class="pvc-spec"><div class="key">Largo cuerda</div><div class="val">${m.largo_cuerda}</div></div>
+        </div>
+        <h5 style="font-size:.82rem;color:#f59e0b;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">📋 Pasos de construcción</h5>
+        <ol class="steps-list">${m.pasos.map(p=>`<li>${p}</li>`).join('')}</ol>
+      </div>
+    </div>`).join('');
+
+  const mats = g.materiales.map(m=>`<li style="padding:5px 0;border-bottom:1px solid #2a3f55;font-size:.86rem;color:#b0bec5;display:flex;gap:8px;"><span>🔧</span>${m}</li>`).join('');
+  const tips = g.consejos.map(c=>`<li>${c}</li>`).join('');
+
+  return `
+    <p class="section-title">Construcción de Arcos PVC</p>
+    <p class="section-subtitle">${g.descripcion}</p>
+
+    <div class="card" style="border-color:#f59e0b;max-width:600px;margin-bottom:20px;">
+      <h3 style="color:#f59e0b;">🛒 Materiales necesarios</h3>
+      <ul style="list-style:none;margin-top:10px;">${mats}</ul>
+      <div style="margin-top:12px;padding:10px;background:#2a1a00;border-radius:8px;font-size:.82rem;color:#fde68a;">
+        ⚠️ ${g.nota_importante}
+      </div>
+    </div>
+
+    ${models}
+
+    <div class="card" style="margin-top:4px;">
+      <h3 style="color:#4caf50;">💡 Consejos Importantes</h3>
+      <ul class="tip-list" style="margin-top:10px;">${tips}</ul>
+      <div style="margin-top:10px;font-size:.82rem;color:#78909c;">
+        📌 ${g.tabla_tension_vs_temperatura}
+      </div>
+    </div>
+    <div style="margin-top:12px;"><span class="wa1-badge">🎓 WA1 · Santiago Avitia</span></div>`;
+}
+
+function togglePVC(header) {
+  const body = header.nextElementSibling;
+  body.style.display = body.style.display === 'none' ? 'block' : 'none';
+}
+
+init();
+</script>
+</body>
+</html>

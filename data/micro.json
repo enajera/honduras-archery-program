@@ -1,0 +1,40 @@
+{
+  "descripcion": "Acciones operativas inmediatas a nivel de club y comunidad para arrancar la masificación.",
+  "categorias": [
+    {
+      "id": "infraestructura",
+      "titulo": "Infraestructura",
+      "icono": "🏫",
+      "color": "verde",
+      "items": ["Instalaciones", "Escuelas", "Universidades"]
+    },
+    {
+      "id": "visibilidad",
+      "titulo": "Visibilidad",
+      "icono": "🎪",
+      "color": "azul",
+      "items": ["Eventos de exhibición", "Demostraciones públicas"]
+    },
+    {
+      "id": "recursos",
+      "titulo": "Recursos",
+      "icono": "💰",
+      "color": "naranja",
+      "items": ["Donaciones a clubs", "Apoyo a manufactura local", "Contacto con marcas deportivas", "Capacitaciones"]
+    },
+    {
+      "id": "formacion",
+      "titulo": "Formación",
+      "icono": "👨‍🏫",
+      "color": "morado",
+      "items": ["Capacitaciones de entrenadores", "Entrenadores Tiro con Arco (T.C.)"]
+    },
+    {
+      "id": "institucional",
+      "titulo": "Institucional",
+      "icono": "🏛️",
+      "color": "cyan",
+      "items": ["Autonomía del club/federación", "Estructura organizacional"]
+    }
+  ]
+}

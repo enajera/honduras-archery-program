@@ -1,0 +1,56 @@
+{
+  "version": "1.0",
+  "ultima_actualizacion": "2026-05-26",
+  "fuente": "World Archery / FEHTARCO",
+  "secciones": [
+    {
+      "id": "seguridad",
+      "titulo": "Reglas de Seguridad",
+      "icono": "🛡️",
+      "reglas": [
+        "Nunca apuntar el arco hacia personas, animales u objetos no autorizados.",
+        "Solo tensar el arco en la línea de tiro y apuntando hacia el blanco.",
+        "Esperar la señal del árbitro o instructor antes de disparar.",
+        "No cruzar la línea de tiro mientras otros arqueros disparan.",
+        "Las flechas solo se recogen cuando todos los arqueros han terminado su ronda.",
+        "Inspeccionar el equipo antes de cada sesión de tiro."
+      ]
+    },
+    {
+      "id": "puntuacion",
+      "titulo": "Sistema de Puntuación",
+      "icono": "🎯",
+      "reglas": [
+        "Puntuación por zonas: 10 (centro/X), 9, 8, 7, 6, 5, 4, 3, 2, 1.",
+        "La X cuenta como 10 y se usa para desempates.",
+        "Flecha que toca la línea entre dos zonas recibe la puntuación más alta.",
+        "Flecha rebotada o caída durante el disparo cuenta como 0.",
+        "Si el blanco cae durante el disparo, se puede repetir la flecha.",
+        "El árbitro tiene la decisión final en casos de disputa."
+      ]
+    },
+    {
+      "id": "señales_sonoras",
+      "titulo": "Señales Sonoras",
+      "icono": "🔊",
+      "reglas": [
+        "3 pitidos: Los arqueros pasan a la línea de tiro.",
+        "2 pitidos: Los arqueros pueden comenzar a disparar.",
+        "1 pitido: Alto el fuego / parar de disparar.",
+        "4 o más pitidos: EMERGENCIA — detener todo inmediatamente."
+      ]
+    },
+    {
+      "id": "equipo",
+      "titulo": "Equipo Permitido",
+      "icono": "🏹",
+      "reglas": [
+        "Arco recurvo: sin magnificación óptica, sin estabilizadores eléctricos.",
+        "Flechas: deben tener el nombre o iniciales del arquero marcadas.",
+        "Protecciones: brazalete, dedil o tab son obligatorios.",
+        "Mira: permitida según la categoría del torneo.",
+        "Estabilizadores: permitidos según reglamento de la categoría."
+      ]
+    }
+  ]
+}

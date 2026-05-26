@@ -1,0 +1,319 @@
+{
+  "titulo": "Secuencia del Disparo — World Archery Nivel 1",
+  "subtitulo": "Metodología Pascal Colmaire · Impartido por Santiago Avitia Hernández",
+  "descripcion": "El sistema de enseñanza certificado por World Archery. La tarea del arquero es la balística: repetir la posición de todas las partes del cuerpo respecto al blanco con perfección, generando una memoria muscular (motor memory).",
+  "conceptos_base": [
+    {
+      "titulo": "Técnica vs. Estilo",
+      "texto": "Solo existen dos técnicas científicamente validadas: el Sistema Lineal (Kim Hyung Tak) y el Sistema Angular (Kisik Lee). El ESTILO son los micro-ajustes individuales del cuerpo para lograr eficiencia. Técnica = estructura esencial. Estilo = detalles para que la forma siempre se ejecute.",
+      "icono": "🔬"
+    },
+    {
+      "titulo": "Estabilidad y Consistencia",
+      "texto": "La estabilidad tiene 4 pilares: Técnica (memoria motriz), Física (cinestesia y fuerza), Mental (relajación, positividad, concentración) y Consistencia de Ritmo (cadencia, respiración). Todo puede funcionar mientras sea repetido constantemente.",
+      "icono": "🎯"
+    },
+    {
+      "titulo": "Tarea del Arquero",
+      "texto": "Repetir posiciones y esfuerzos para la máxima estabilidad. Soltar la cuerda durante el período de coordinación entre referencias visuales, aspectos cinestésicos y psicológicos — como una memoria motriz en la ejecución.",
+      "icono": "🧠"
+    }
+  ],
+  "fases": [
+    {
+      "id": "preparacion",
+      "numero": 1,
+      "titulo": "Movimientos de Preparación",
+      "descripcion": "Llevan al arquero al mismo estado físico y psicológico antes de la acción principal. Preparan para una acción eficiente: postura estable y contacto estable con el arco.",
+      "color": "#4caf50",
+      "colorBg": "#1b3a2a",
+      "pasos": [
+        {
+          "titulo": "Postura y Orientación",
+          "icono": "🦶",
+          "contenido": "Un pie de cada lado de la línea de tiro, en línea al objetivo, pies paralelos. La postura paralela es la más popular para iniciación. La postura abierta da comodidad pero tiene pobre alineación de hombros. La postura cerrada tiene excelente alineación pero el arquero queda orientado detrás de la línea.",
+          "puntos": [
+            "Pies paralelos → popular para arqueros de iniciación",
+            "Postura abierta: cómoda, resistente al viento, pero menor alineación",
+            "Postura cerrada: excelente alineación, excelente soltada al eje",
+            "Prueba: un asistente empuja gentilmente al nivel del pecho — el arquero debe sentir estabilidad"
+          ],
+          "ejercicios": ["Asistente empuja adelante/atrás a nivel del pecho para verificar balance"]
+        },
+        {
+          "titulo": "Pre-Posición del Cuerpo",
+          "icono": "🧍",
+          "contenido": "Cuerpo erguido, espalda plana y derecha, pecho plano y bajo. Comenzar bajando los hombros y manteniendo el pecho plano, luego colocar bien los talones, después bajar el abdomen. El centro de gravedad debe dar estabilidad.",
+          "puntos": [
+            "Inhalar al pasar de posición doblada a erguida",
+            "Estirado hacia la cabeza, espalda plana",
+            "Peso distribuido equitativamente en ambos pies",
+            "Hombros bajos, pecho plano"
+          ],
+          "ejercicios": []
+        },
+        {
+          "titulo": "Agarre de la Cuerda",
+          "icono": "✋",
+          "contenido": "Los dedos se colocan en el extremo de la primera articulación (1ª falange). Para principiantes: método de 3 dedos bajo la flecha o split-finger. Muñeca recta, nudillos planos. Distribución de fuerzas: índice 25-35%, medio 40-60%, anular 25-35%.",
+          "puntos": [
+            "Jóvenes y arqueros sin mira: 3 dedos bajo la flecha",
+            "Arqueros con mira: split-finger (1 arriba, 2 abajo)",
+            "Dedo índice 25-35% · Dedo medio 40-60% · Anular 25-35%",
+            "Muñeca recta, dedos no utilizados relajados",
+            "Pre-tensión del agarre antes de levantar"
+          ],
+          "ejercicios": []
+        },
+        {
+          "titulo": "Mano del Arco",
+          "icono": "🤚",
+          "contenido": "El único contacto entre la mano y el arco durante la propulsión. Mano relajada recomendada — más fácil de repetir. La presión se ejerce en el punto de la almohadilla del pulgar. Bridas recomendadas para principiantes para no perder el arco.",
+          "puntos": [
+            "Presión en la almohadilla del pulgar (punto de mano de arco)",
+            "Mano relajada: más fácil de repetir que cualquier tensión",
+            "Bridas: recomendadas para iniciación",
+            "Ejercicio: mover el arco arriba/abajo — la muñeca debe seguir las oscilaciones"
+          ],
+          "ejercicios": ["Mover arco arriba y abajo para verificar relajación de muñeca", "Suspender el arco para descubrir el movimiento natural"]
+        },
+        {
+          "titulo": "Levantar el Arco + Activación Escapular",
+          "icono": "💪",
+          "contenido": "El levantamiento combina 4 pasos: (1) Preparación de elevación, (2) Elevar con apertura/pre-apertura, (3) Máxima elevación, (4) Activación de escápula del arco (bajar el omóplato). La activación escapular es CRÍTICA para un disparo eficiente y sin lesiones.",
+          "puntos": [
+            "Paso 1: Preparación — hombros bajos, activación inicial",
+            "Paso 2: Elevar con pre-apertura simultánea",
+            "Paso 3: Máxima elevación + alineación de cuerda con ojo",
+            "Paso 4: Bajar escápula del arco (activación escapular)",
+            "El asistente ayuda a guiar los hombros hacia abajo"
+          ],
+          "ejercicios": [
+            "Ejercicio identificación escapular: pellizcar una hoja entre los omóplatos",
+            "Asistente guía el hombro hacia abajo durante el levantamiento",
+            "Simulación sin arco frente al espejo"
+          ],
+          "imagenes": [
+            { "src": "/images/wa1/escapular_buena.jpg",        "caption": "Activación escapular correcta" },
+            { "src": "/images/wa1/escapular_mala.jpg",         "caption": "Mala posición escapular" },
+            { "src": "/images/wa1/escapular_pronunciada.jpg",  "caption": "Exceso de pronunciación escapular" },
+            { "src": "/images/wa1/anatomia_espalda.png",       "caption": "Anatomía muscular de la espalda" },
+            { "src": "/images/wa1/trabajo_opresor.jpg",        "caption": "Trabajo con opresor" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fuerzas",
+      "numero": 2,
+      "titulo": "Período de Producción de Fuerzas",
+      "descripcion": "Los movimientos involucrados en la apertura completa del arco: pre-apertura, apertura completa y apuntar. La fuerza no viene de las extremidades — viene del centro del cuerpo (núcleo).",
+      "color": "#2196f3",
+      "colorBg": "#0d2137",
+      "pasos": [
+        {
+          "titulo": "Pre-Apertura",
+          "icono": "↗️",
+          "contenido": "Extensión inicial antes de la apertura completa. Pre-alinea la cuerda con el ojo en la posición de apuntar. Pre-posición del hombro del arco para alineación ósea de la estructura. La altura de la pre-apertura puede ser igual o mayor a la apertura final.",
+          "puntos": [
+            "Pre-alineación de la cuerda con el ojo antes de la apertura completa",
+            "Pre-posición del hombro del arco para estructura ósea",
+            "Sin pre-apertura = mira debe moverse durante la apertura (NO recomendado)",
+            "La altura depende del método de abrir el arco"
+          ],
+          "ejercicios": []
+        },
+        {
+          "titulo": "Apertura (Jalón)",
+          "icono": "↔️",
+          "contenido": "En el plano de disparo, a lo largo del eje de la flecha. Balance de apertura: ambos lados trabajan simultáneamente. Velocidad lenta hacia el final. Formas: apertura curva o apertura recta. USO DEL CUERPO es fundamental.",
+          "puntos": [
+            "En el plano de disparo: cuerda entre el ojo y el objetivo",
+            "Balance: el brazo del arco empuja, el brazo de la cuerda jala — simultáneo",
+            "Velocidad: lento hacia el final de la apertura",
+            "Cabeza quieta, hombro del arco en la misma altura durante la apertura",
+            "Formas: curva (más común) o recta"
+          ],
+          "ejercicios": []
+        },
+        {
+          "titulo": "Anclaje",
+          "icono": "🎯",
+          "contenido": "Puntos de contacto clave: mayor contacto posible mano-mandíbula, rostro paralelo, nariz/labios/barbilla tocando la cuerda, codo a la altura de la oreja. Sin espacio entre maxilar y mano. Dedos fijos en cuerda.",
+          "puntos": [
+            "Mayor contacto posible: mano-mandíbula, sin espacio",
+            "Nariz, labios y barbilla en contacto con la cuerda",
+            "Codo aproximadamente a la altura de la oreja",
+            "Metacarpianos en plano horizontal",
+            "Cuerda en medio de la nariz para inclinación regular de cabeza"
+          ],
+          "ejercicios": []
+        },
+        {
+          "titulo": "Expansión",
+          "icono": "🔄",
+          "contenido": "Movimiento de extensión desde la apertura completa hacia la soltada. La fuerza viene del núcleo/espalda, no de los brazos. Músculos: concéntricos al abrir, isométricos en apertura completa. El 'efecto resorte': hombro y base de la barbilla juntos. Clicker: introducir cuando el arquero domina el libraje y tiene buena forma.",
+          "puntos": [
+            "Extensión usando los omóplatos (no mover los brazos)",
+            "Fuerzas isométricas durante la apertura completa",
+            "Criterios: sin efecto palanca, progresión regular del punto de flecha",
+            "2 a 4 segundos para hacer clic",
+            "Sensación: aumento leve de presión de cuerda en la cara hacia arriba"
+          ],
+          "ejercicios": [
+            "Descubrir: empujar a un asistente en la dirección de expansión",
+            "Simulación con banda elástica",
+            "Asistente resiste el jalón y el empuje"
+          ]
+        },
+        {
+          "titulo": "Respiración en Producción",
+          "icono": "💨",
+          "contenido": "Inhalar al levantar el arco. Exhalación parcial, después mantener durante la apertura. Para la acción principal: reserva de aire en los pulmones pero no llenos. Esperar (no bloquear). Durante el seguimiento: mantener el mismo patrón de respiración.",
+          "puntos": [
+            "Inhalar → levantar el arco hacia el objetivo",
+            "Exhalación parcial → durante la apertura",
+            "Mantener (no bloquear) → durante la acción principal",
+            "Misma actividad respiratoria durante la soltada"
+          ],
+          "ejercicios": []
+        }
+      ]
+    },
+    {
+      "id": "instante",
+      "numero": 3,
+      "titulo": "Instante Crítico — Liberación",
+      "descripcion": "El momento de la soltada de la cuerda. La liberación NO debe ser provocada, sino GENERADA por el proceso. Solo ocurre un cambio: una disminución repentina de la contracción de los flexores de los dedos. Nada más.",
+      "color": "#ff9800",
+      "colorBg": "#2a1a08",
+      "pasos": [
+        {
+          "titulo": "Los 4 Elementos Clave",
+          "icono": "🔑",
+          "contenido": "La soltada perfecta tiene 4 componentes que deben ocurrir en armonía: forma del codo constante, dirección física del seguimiento, pequeño cambio en la forma de la mano, y rapidez.",
+          "puntos": [
+            "1️⃣ Forma del codo (cuerda) constante — no debe cambiar",
+            "2️⃣ Dirección física del seguimiento — un poco adelante, en el eje de la flecha",
+            "3️⃣ Pequeño cambio en la forma de la mano — dedo anular frente al arco, dedos relajados",
+            "4️⃣ Rapidez — la soltada debe ser rápida, no arrastrada"
+          ],
+          "ejercicios": [
+            "Simulación: presionar el pulgar a través de los 3 dedos",
+            "Simulación: jalar los 3 dedos a través del pulgar",
+            "Con asistente: el arquero y el asistente sueltan juntos",
+            "Con elástico: dedos siempre en contacto con la tabla",
+            "Disparar con ojos cerrados para eliminar Target Panic"
+          ]
+        },
+        {
+          "titulo": "Target Panic",
+          "icono": "⚠️",
+          "contenido": "El Target Panic es cuando el arquero libera instintivamente al ver el blanco. Se cura progresivamente: disparar sin caratula con ojos cerrados → ojos abiertos sin mira → con mira sin caratula → con mira y caratula → con flecha a distancia muy corta.",
+          "puntos": [
+            "Causa: disparar solo con referencias visuales",
+            "Síntoma: liberar antes de completar la expansión",
+            "Cura: protocolo progresivo sin caratula",
+            "Paso 1: ojos cerrados, sin caratula",
+            "Paso 2: ojos abiertos, sin mira, sin caratula",
+            "Paso 3: con mira y caratula → flecha a 4-5 metros"
+          ],
+          "ejercicios": []
+        }
+      ]
+    },
+    {
+      "id": "continuidad",
+      "numero": 4,
+      "titulo": "Continuidad y Seguimiento",
+      "descripcion": "Cuando se suelta la cuerda, el disparo NO termina — es el comienzo del vuelo de la flecha. El arquero permanece 'impasible', igual que durante la expansión, en todas sus actividades: mental, visual, respiratorio y físico.",
+      "color": "#9c27b0",
+      "colorBg": "#1a0d2e",
+      "pasos": [
+        {
+          "titulo": "Seguimiento Mental",
+          "icono": "🧠",
+          "contenido": "El mismo enfoque mental debe mantenerse a través del paso de propulsión/liberación. Sin que el rostro y/o ojos cambien durante o después de la soltada.",
+          "puntos": [
+            "Mismo estado mental durante y después de la soltada",
+            "Sin cambio en la expresión facial",
+            "Ejercicio: autocontrol con espejo durante el disparo"
+          ],
+          "ejercicios": ["Espejo: verificar que la expresión facial no cambia en la soltada"]
+        },
+        {
+          "titulo": "Seguimiento Visual",
+          "icono": "👁️",
+          "contenido": "Mantener la misma actividad visual en el mismo objeto (centro del objetivo), misma apertura de párpados, misma tensión ocular. En particular NO debe haber parpadeo. El objetivo debe seguir siendo visible después de la liberación.",
+          "puntos": [
+            "Mismo enfoque visual antes, durante y después de la soltada",
+            "Sin parpadeo en el momento de liberación",
+            "Misma apertura de párpados y tensión ocular",
+            "El blanco como interés secundario después de la soltada"
+          ],
+          "ejercicios": []
+        },
+        {
+          "titulo": "Seguimiento Respiratorio",
+          "icono": "💨",
+          "contenido": "La mayoría de los arqueros aguanta la respiración durante el apunte. El seguimiento NO es bloquear — es bajar la intensidad y volumen de aire en los pulmones. Mantener el mismo patrón durante la soltada.",
+          "puntos": [
+            "No bloquear la respiración — bajar el volumen",
+            "Mismo patrón respiratorio durante la liberación",
+            "Evitar bloqueo completo de vías respiratorias"
+          ],
+          "ejercicios": []
+        },
+        {
+          "titulo": "Continuidad Física",
+          "icono": "🏹",
+          "contenido": "La posición del cuerpo debe mantenerse en la misma forma desde la apertura completa hasta que la flecha impacte en el blanco. Esto incluye el brazo del arco (mano relajada, mismo ángulo) y el brazo de la cuerda (codo y dirección).",
+          "puntos": [
+            "Misma forma completa del cuerpo antes, durante y después de la soltada",
+            "Brazo del arco: mano relajada, misma orientación",
+            "Brazo de cuerda: codo en la misma dirección, seguimiento un poco adelante",
+            "Usar laser pointer para verificar el seguimiento del brazo"
+          ],
+          "ejercicios": [
+            "Con laser pointer en el arco: verificar que el brazo sigue en línea",
+            "Asistente guía el seguimiento del brazo del arco",
+            "Dos clickers separados (solo entrenamiento)"
+          ]
+        }
+      ]
+    }
+  ],
+  "psicologia": {
+    "titulo": "Psicología en la Arquería",
+    "temas": [
+      { "nombre": "Relajación", "desc": "Nivel de activación óptimo. Métodos: pesadez/ligereza, tenso/relajado, énfasis en exhalación, canto interno, auto-visualización." },
+      { "nombre": "Concentración y Atención", "desc": "Estar aquí y ahora. Ojos duros (foco externo estrecho) vs ojos suaves (amplia atención). Apuntar es lo ÚLTIMO en ponerse en marcha." },
+      { "nombre": "Actividad Mental", "desc": "Baja cuando: mismo tipo de atención, ojos estables. Alta cuando: cambio entre tipos de atención, muchos movimientos de ojos." },
+      { "nombre": "Charla Positiva", "desc": "Pensar en resultados positivos. Evitar el pensamiento negativo antes y durante el disparo." },
+      { "nombre": "Visualización", "desc": "Lenta para técnica (analítico), rápida para integración, a velocidad de ejecución en competencia." },
+      { "nombre": "Metas SMART", "desc": "Specific, Measurable, Achievable, Realistic, Timed, Exciting, Recorded. Objetivos de proceso > desempeño > resultado." },
+      { "nombre": "Manejo del Estrés", "desc": "Estrés = conexión emocional con un futuro posible. Regularlo con baja actividad mental y técnicas de relajación. Practicar con síntomas durante el entrenamiento." },
+      { "nombre": "Estado de Rendimiento Ideal", "desc": "Describir tu estado físico y mental cuando disparas bien. Registrar el proceso que lleva a ese estado." }
+    ]
+  },
+  "trabajo_fisico": {
+    "titulo": "Preparación Física Específica",
+    "componentes": [
+      "Cardio / eficiencia cardiovascular",
+      "Tronco firme (core): posturas estáticas, semi-estáticas, inestables",
+      "Fuerza específica de disparo (libraje + masa)",
+      "Equilibrio corporal: general y específico (tablas wobbling)",
+      "Extensión y flexibilidad",
+      "Yoga o equivalente (sofrología, danza clásica)",
+      "Propiocepción: plataformas inestables, ojos cerrados"
+    ],
+    "prueba_fuerza": "8 tiempos sin deformación = buen nivel. Si 10-12 tiempos sin deformación: incrementar libraje. Evitar aumentar más de 2 libras a la vez.",
+    "tablas_wobbling": "Construcción casera con disco de madera (diámetro 20\" para adelante/atrás, 36\" para izquierda/derecha). Dos cuartos de disco atornillados debajo de la tabla."
+  },
+  "observacion": {
+    "titulo": "Método de Observación con GoPro",
+    "descripcion": "La cámara GoPro se coloca sobre el maneral del arco apuntando hacia el torso y rostro del arquero.",
+    "puntos_observacion": ["Rostro", "Agarre de cuerda", "Alineación de hombros", "Anclaje", "Cuerda en nariz", "Seguimiento (vista y brazo de arco)", "Soltada"],
+    "ventaja": "El coach puede monitorear las flechas con su scope y ver en vivo las tomas del arquero al mismo tiempo mediante la app del celular."
+  }
+}

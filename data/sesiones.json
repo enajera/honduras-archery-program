@@ -1,0 +1,80 @@
+{
+  "descripcion_general": {
+    "duracion_sesiones": 4,
+    "horas_totales": 8,
+    "modalidad": "Adaptación con escuelas, universidades, etc.",
+    "captacion": "Grupos de Interés (clubs, colegios, universidades)"
+  },
+  "sesiones": [
+    {
+      "numero": 1,
+      "titulo": "Fundamentos y Seguridad",
+      "color": "#4caf50",
+      "contenidos": [
+        "Reglas de seguridad en campo",
+        "Técnica básica de disparo",
+        "Sin diana (enfoque en forma)",
+        "XP de agrupación de flechas"
+      ]
+    },
+    {
+      "numero": 2,
+      "titulo": "Calentamiento y Disparo",
+      "color": "#2196f3",
+      "contenidos": [
+        "Calentamiento general",
+        "Calentamiento con la banda",
+        "Rondas de disparo con Tape (posición de pies/cuerpo)",
+        "Últimas rondas con diana",
+        "Con retos dinámicos (Twister)"
+      ]
+    },
+    {
+      "numero": 3,
+      "titulo": "Evaluación de Habilidades",
+      "color": "#ff9800",
+      "contenidos": [
+        "Evaluación de coordinación",
+        "Evaluación de balance",
+        "Evaluación de concentración",
+        "Comprensión técnica",
+        "Intro Sistema de Puntuación y Sonido",
+        "Completar ficha del participante"
+      ]
+    },
+    {
+      "numero": 4,
+      "titulo": "Torneo de Cierre",
+      "color": "#e91e63",
+      "contenidos": [
+        "6 Rondas, 3 flechas por ronda",
+        "Indoor — 5 nts",
+        "Clasificación individual" 
+      ]
+    }
+  ],
+  "materiales": [
+    "Curso Iniciación (guía)",
+    "Material Inicial",
+    "Manual del Entrenador",
+    "Manual del Atleta",
+    "Propuestas Grupales"
+  ],
+  "temas_basicos": [
+    "Teoría del Disparo",
+    "Equipamiento (tipos, partes, mantenimiento)",
+    "Reglas World Archery (WA)"
+  ],
+  "arcos_iniciacion": [
+    {
+      "nombre": "Snake (Roland)",
+      "descripcion": "15–20 lbs, puede ser de PVC. Arco de iniciación ideal.",
+      "tipo": "recurvo simple"
+    },
+    {
+      "nombre": "Genesis",
+      "descripcion": "Recurvo de bajo costo con opción de agregar componentes olímpicos.",
+      "tipo": "recurvo modular"
+    }
+  ]
+}
