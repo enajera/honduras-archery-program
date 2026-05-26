@@ -3,3 +3,4 @@ uploads/
 .env
 .env.local
 npm-debug.log*
+RESUMEN_SESION.md
